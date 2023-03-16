@@ -1,0 +1,37 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.nav-bar{
+    width: 98.5%;
+    height: 50px;
+    background-color: #cd75e4;
+    display: inline-flex;
+    justify-content: space-between;
+    padding: 0px 10px;
+}
+.nav-bar .name-logo{
+    height: 76%;
+    background-color: #cd75e4;
+    padding: 6px 5px;
+    font-size: 30px;
+}
+.nav-bar .menu-list{
+    display: table;
+    margin-left: -10%;
+    display: flex;
+}
+.nav-bar .menu-list .menu{
+    height: 59%;
+    width: max-content;
+    font-size: 20px;    
+    padding: 10px 17px;
+    background-color: #cd75e4;
+}
+.nav-bar .menu-list .menu a{
+    text-decoration: none;
+    color: black;
+}
+.nav-bar .menu-list .menu:hover{
+    background-color: #af66c1;
+}
