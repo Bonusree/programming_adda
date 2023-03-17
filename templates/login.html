@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        .login-card{
+            margin: 20px auto;
+            width: 40%;
+            height: 200px;
+            background-color: #fcfcfc;
+            border-radius: 10px 10px 0px 0px;
+        }
+        .login-card .tittle{
+            width: 100%;
+            height: 25px;
+            padding: 1% 0px;
+            background-color: #f1f1f1;
+            border-radius: 10px 10px 0px 0px;
+            font-size: 20px;
+            border-bottom: 1px solid black;
+        }
+        .login-card .footer{
+            background-color: #f1f1f1;
+            border-radius: 0px;
+            text-align: right;
+        }
+        .login-card table{
+            width: 70%;
+            margin: 0px auto;
+            height: 150px;
+        }
+        .login-card button{
+            padding: 5px 20px;
+            border: 1px solid #a1a1a1;
+        }
+        .login-card button:hover{
+            border: 1px solid #003effa8;
+        }
+        .login-card input{
+            height: 20px;
+            width: 90%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-card">
+            <div class="tittle">&nbsp; Login into Programming Adda</div>
+            <form action="">
+                <table>
+                    <tr>
+                        <td>Email</td>
+                        <td><input type="email" name="email"/></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><input type="password" name="password"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <button type="submit">Login</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <div class="footer tittle">
+                <a href="#">Register</a>&nbsp;
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>
