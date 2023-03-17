@@ -1,52 +1,16 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <style>
-        .register{
-            margin: 20px auto;
-            width: 40%;
-            height: 300px;
-            background-color: #fcfcfc;
-            border-radius: 10px 10px 0px 0px;
-        }
-        .register .tittle{
-            width: 100%;
-            height: 25px;
-            padding: 1% 0px;
-            background-color: #f1f1f1;
-            border-radius: 10px 10px 0px 0px;
-            font-size: 20px;
-            border-bottom: 1px solid black;
-        }
-        .register .footer{
-            background-color: #f1f1f1;
-            border-radius: 0px;
-            text-align: right;
-        }
-        .register table{
-            width: 70%;
-            margin: 0px auto;
-            height: 250px;
-        }
-        .register button{
-            padding: 5px 20px;
-            border: 1px solid #a1a1a1;
-        }
-        .register button:hover{
-            border: 1px solid #003effa8;
-        }
-        .register input{
-            height: 20px;
-            width: 90%;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'register.css' %}" />
 </head>
 <body>
     <div class="container">
+        {% include 'navbar.html' %}
         <div class="register register">
             <div class="tittle">&nbsp; Register into Programming Adda</div>
             <form action="">
