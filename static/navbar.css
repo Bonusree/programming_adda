@@ -5,14 +5,15 @@
 .nav-bar{
     width: 98.5%;
     height: 50px;
-    background-color: #cd75e4;
+    min-height: max-content;
+    background-color: #f1f1f1;
     display: inline-flex;
     justify-content: space-between;
     padding: 0px 10px;
 }
 .nav-bar .name-logo{
     height: 76%;
-    background-color: #cd75e4;
+    background-color: #f1f1f1;
     padding: 6px 5px;
     font-size: 30px;
 }
@@ -26,12 +27,12 @@
     width: max-content;
     font-size: 20px;    
     padding: 10px 17px;
-    background-color: #cd75e4;
+    background-color: #f1f1f1;
 }
 .nav-bar .menu-list .menu a{
     text-decoration: none;
     color: black;
 }
 .nav-bar .menu-list .menu:hover{
-    background-color: #af66c1;
+    background-color: #d5dad6;
 }
