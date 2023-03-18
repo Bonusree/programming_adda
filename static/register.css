@@ -4,7 +4,7 @@
     height: max-content;
     background-color: #fcfcfc;
     border-radius: 10px 10px 0px 0px;
-    border: 1px solid black;
+    border: 1px solid #989898;
 }
 .register .tittle{
     width: 100%;
@@ -13,14 +13,14 @@
     background-color: #f1f1f1;
     border-radius: 10px 10px 0px 0px;
     font-size: 20px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #989898;
 }
 .register .footer{
     background-color: #f1f1f1;
     border-radius: 0px;
     text-align: right;
     border: 0px;
-    border-top: 1px solid black;
+    border-top: 1px solid #989898;
 }
 .register table{
     width: 85%;
