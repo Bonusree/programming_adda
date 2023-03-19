@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Problem</title>
+    <link rel="stylesheet" href="{% static 'addproblem.css' %}" />
+</head>
+<body>
+
+    <div class="container">
+        {% include 'navbar.html' %}
+        <div class="problem">
+            <div class="tittle">&nbsp; Add new problem</div>
+            <form action="">
+                <table>
+                    <tr>
+                        <td>Problem name</td>
+                        <td colspan="2"><input type="text" name="problem_name"/></td>
+                    </tr>
+                    <tr>
+                        <td>Problem link</td>
+                        <td colspan="2"><input type="text" name="problem_link"/></td>
+                    </tr>
+                    <tr>
+                        <td>Judge name</td>
+                        <td>
+                            <select name="judge_name">
+                                <option value="cf">codeforces</option>
+                            </select>
+                        </td>
+                        <td align="right"><button type="button">Others</button></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td  align="center" colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td>Tags</td>
+                        <td>
+                            <select name="tags">
+                                <option value="bs">binary search</option>
+                            </select>
+                        </td>
+                        <td align="right"><button type="button">Others</button></td>
+                    </tr>
+                    <tr>
+                        <td>Additional comment</td>
+                        <td colspan="2">
+                            <textarea rows="10" cols="48" name="additional_comment"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" align="center">
+                            <button type="submit">Add</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            
+        </div>
+    </div>
+</body>
+</html>

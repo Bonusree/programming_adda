@@ -1,0 +1,44 @@
+.problem{
+    margin: 20px auto;
+    width: 40%;
+    min-width: 500px;
+    height: max-content;
+    background-color: #fcfcfc;
+    border-radius: 10px 10px 0px 0px;
+    border: 1px solid #989898;
+}
+.problem .tittle{
+    width: 100%;
+    height: max-content;
+    padding: 1% 0px;
+    background-color: #f1f1f1;
+    border-radius: 10px 10px 0px 0px;
+    font-size: 20px;
+    border-bottom: 1px solid #989898;
+}
+.problem table{
+    width: 100%;
+    padding: 10px;
+    margin: 0px auto;
+    height: 425px;
+}
+.login-card table td:nth-child(1){
+    width: 25%;
+}
+.login-card table td:nth-child(2){
+    width: 37%;
+}
+.login-card table td:nth-child(3){
+    width: 38%;
+}
+.problem button{
+    padding: 5px 20px;
+    border: 1px solid #a1a1a1;
+}
+.problem button:hover{
+    border: 1px solid #003effa8;
+}
+.problem input{
+    height: 20px;
+    width: 98%;
+}
