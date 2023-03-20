@@ -6,13 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
     <link rel="stylesheet" href="{% static 'login.css' %}" />
 </head>
 <body>
     <div class="container">
         {% include 'navbar.html' %}
-        <div class="login-card">
-            <div class="tittle">&nbsp; Login into Programming Adda</div>
+        <div class="card login-card">
+            <div class="tittle">Login into Programming Adda</div>
             <form action="{% url 'home' %}" method="POST">
                 {% csrf_token %} 
                 <table>
@@ -32,7 +33,7 @@
                 </table>
             </form>
             <div class="footer tittle">
-                <a href="#">Register</a>&nbsp;
+                <a href="/account/register">Register</a>
             </div>
             
         </div>

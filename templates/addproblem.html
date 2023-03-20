@@ -6,14 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Problem</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
     <link rel="stylesheet" href="{% static 'addproblem.css' %}" />
 </head>
 <body>
 
     <div class="container">
         {% include 'navbar.html' %}
-        <div class="problem">
-            <div class="tittle">&nbsp; Add new problem</div>
+        <div class="card problem">
+            <div class="tittle">Add new problem</div>
             <form action="">
                 <table>
                     <tr>
