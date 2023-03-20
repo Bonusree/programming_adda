@@ -1,27 +1,6 @@
 .login-card{
-    margin: 20px auto;
     width: 30%;
     min-width: 350px;
-    height: max-content;
-    background-color: #fcfcfc;
-    border-radius: 10px 10px 0px 0px;
-    border: 1px solid #989898;
-}
-.login-card .tittle{
-    width: 100%;
-    height: max-content;
-    padding: 1% 0px;
-    background-color: #f1f1f1;
-    border-radius: 10px 10px 0px 0px;
-    font-size: 20px;
-    border-bottom: 1px solid #989898;
-}
-.login-card .footer{
-    background-color: #f1f1f1;
-    border-radius: 0px;
-    text-align: right;
-    border: 0px;
-    border-top: 1px solid #989898;
 }
 .login-card table{
     width: 85%;
@@ -33,15 +12,4 @@
 }
 .login-card table td:nth-child(2){
     width: 65%;
-}
-.login-card button{
-    padding: 5px 20px;
-    border: 1px solid #a1a1a1;
-}
-.login-card button:hover{
-    border: 1px solid #003effa8;
-}
-.login-card input{
-    height: 20px;
-    width: 90%;
 }
