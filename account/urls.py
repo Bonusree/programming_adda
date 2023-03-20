@@ -3,7 +3,7 @@ from account import views
 
 
 urlpatterns = [
-    path('',views.register),
+    path('register/',views.register),
     path('login', views.login, name='login'),
     path('home', views.home, name="home")
 ]
