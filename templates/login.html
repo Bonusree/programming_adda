@@ -13,7 +13,8 @@
         {% include 'navbar.html' %}
         <div class="login-card">
             <div class="tittle">&nbsp; Login into Programming Adda</div>
-            <form action="">
+            <form action="{% url 'home' %}" method="POST">
+                {% csrf_token %} 
                 <table>
                     <tr>
                         <td>Email</td>
