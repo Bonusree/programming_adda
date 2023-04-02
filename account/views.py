@@ -9,12 +9,6 @@ def register(request):
     if request.method=="POST":
         # if registered successfully render to home
         # else show error message and render to register
-        pass
-    else:
-        return render(request, 'register.html')
-
-def login(request):
-    if request.method=="POST":
         name=request.POST.get("name")
         email=request.POST.get("email")
         password=request.POST.get("password")
@@ -24,6 +18,11 @@ def login(request):
             return render(request, 'login.html', {'msg':msg})
         my_user=User.objects.create_user(name, email, password)
         my_user.save()
+        pass
+    else:
+        return render(request, 'register.html')
+def login(request):
+    if request.method=="POST":
         return render(request, 'home.html')
     else:
         return render(request, 'login.html')
