@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 
-@login_required(login_url='home')
+@login_required
 def register(request):
     if request.method=="POST":
         # if registered successfully render to home
@@ -27,16 +27,17 @@ def login(request):
     else:
         return render(request, 'login.html')
 
-def home(request):
-    return render(request, 'home.html')
-    # if request.method=="POST":
-    #     name=request.POST.get("name")
-    #     password=request.POST.get("password")
-    #     user=authenticate(request,username=name,password=password)
-    #     if user is not None:
-    #         return HttpResponse("you are not registered")
-    #     else:
-    #         return HttpResponse("welcome")
-    # else:
-    #     return render(request, 'login.html')
+# def home(request):
+#     if request.method=="POST":
+#         name=request.POST.get("name")
+#         password=request.POST.get("password")
+#         user=authenticate(request,username=name,password=password)
+#         print(user)
+#         if user is not None:
+#             return render(request, 'home.html')
+            
+#         else:
+#             return HttpResponse("you are not registered")
+#     else:
+#         return render(request, 'login.html')
         
