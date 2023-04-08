@@ -13,6 +13,7 @@
     <div class="container-fluid">
       <div class="row m-2 text-end">
         <form action="">
+          {% csrf_token %}
           <select name="searchOption" class="rounded d-block d-sm-inline
             text-center mx-1" style="width: 120px; height: 40px;">
             <option value="tag">tag</option>
