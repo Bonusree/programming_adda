@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Problesm</title>
+    <title>Contestant</title>
     <style>
       .pagination .page-item.active .page-link {
         background-color: #212529;
@@ -20,27 +20,21 @@
       <div class="row m-2 text-end">
         <form action="">
           {% csrf_token %}
-          <select name="searchOption" class="rounded d-block d-sm-inline
-            text-center mx-1" style="width: 120px; height: 40px;">
-            <option value="tag">tag</option>
-            <option value="judge">judge</option>
-          </select>
           <input class="rounded d-block d-sm-inline text-center mx-1 border-1"
             style="width: 150px; height: 40px;" name="searchText"
             placeholder=""/>
           <button class="btn btn-dark rounded d-block d-sm-inline text-center
             mx-1" style="width: 120px; height: 40px;">Search</button>
-
         </form>
       </div>
       <table class="table table-striped table-hover table-bordered"
         style="min-width: 700px;">
         <tr>
-          <th class="text-center">Problem</th>
-          <th class="text-center">Tag</th>
-          <th class="text-center">OJ name</th>
-          <th class="text-center">Contributer</th>
-          <th class="text-center">Additional Contributer</th>
+          <th class="text-center">Name</th>
+          <th class="text-center">Problems</th>
+          <th class="text-center">Editorials</th>
+          <th class="text-center">Blogs</th>
+          <th class="text-center">Others</th>
         </tr>
         <tr>
           <td>sakina</td>

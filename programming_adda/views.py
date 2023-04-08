@@ -24,6 +24,3 @@ def register(request):
 
 def addproblem(request):
     return render(request,'addproblem.html')
-
-def problems(request):
-    return render(request,'problems.html')
