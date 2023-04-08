@@ -1,67 +1,61 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Problem</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}" />
-    <link rel="stylesheet" href="{% static 'addproblem.css' %}" />
-</head>
-<body>
-
-    <div class="container">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Add Problem</title>
+        <!-- <link rel="stylesheet" href="{% static 'style.css' %}" />
+        <link rel="stylesheet" href="{% static 'addproblem.css' %}" /> -->
+    </head>
+    <body>
         {% include 'navbar.html' %}
-        <div class="card problem">
-            <div class="card-header">Add new problem</div>
-            <form action="">
-                <table>
-                    <tr>
-                        <td>Problem name</td>
-                        <td colspan="2"><input type="text" name="problem_name"/></td>
-                    </tr>
-                    <tr>
-                        <td>Problem link</td>
-                        <td colspan="2"><input type="text" name="problem_link"/></td>
-                    </tr>
-                    <tr>
-                        <td>Judge name</td>
-                        <td>
-                            <select name="judge_name">
+        <div class="container mt-4">
+            <div class="card col-12 col-md-6 col-lg-4 m-auto">
+                <div class="card-header">Add new problem</div>
+                <div class="card-body">
+                    <form action="{% url 'home' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group mt-2">
+                            <label for="problemName">Problem name</label>
+                            <input type="text" class="form-control"
+                                id="problemName" name="problemName"
+                                placeholder="Enter problem name">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="sourceLink">Problem source link</label>
+                            <input type="sourceLink" class="form-control"
+                                id="sourceLink" name="sourceLink"
+                                aria-describedby="sourceLinkHelp"
+                                placeholder="Problem source link">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label class="d-block" for="judgeName">Judge name</label>
+                            <select name="judgeName" class="p-2" id="judgeName">
                                 <option value="cf">codeforces</option>
+                                <option value="loj">lightoj</option>
                             </select>
-                        </td>
-                        <td align="right"><button type="button">Others</button></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td  align="center" colspan="2"></td>
-                    </tr>
-                    <tr>
-                        <td>Tags</td>
-                        <td>
-                            <select name="tags">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label class="d-block" for="tag">Tag</label>
+                            <select name="tag" class="p-2">
                                 <option value="bs">binary search</option>
+                                <option value="graph">graph</option>
                             </select>
-                        </td>
-                        <td align="right"><button type="button">Others</button></td>
-                    </tr>
-                    <tr>
-                        <td>Additional comment</td>
-                        <td colspan="2">
-                            <textarea rows="10" cols="48" name="additional_comment"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3" align="center">
-                            <button type="submit">Add</button>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-            
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="comment">Additional comment</label>
+                            <textarea type="text" class="form-control"
+                                id="comment" name="comment"
+                                aria-describedby="commentHelp"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-dark mt-3">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>

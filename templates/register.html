@@ -6,45 +6,75 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}" />
-    <link rel="stylesheet" href="{% static 'register.css' %}" />
 </head>
 <body>
-    <div class="container">
-        {% include 'navbar.html' %}
-        <div class="card register">
-            <div class="card-header">Register into Programming Adda</div>
-            <form action="{% url 'login' %}"  method="post">
-                {% csrf_token %} 
-                <table>
-                    <tr>
-                        <td>Name</td>
-                        <td><input type="text" name="name"/></td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td><input type="email" name="email"/></td>
-                    </tr>
-                    <tr>
-                        <td>Password</td>
-                        <td><input type="password" name="password"/></td>
-                    </tr>
-                    <tr>
-                        <td>Confirm password</td>
-                        <td><input type="password" name="c_password"/></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" align="center">
-                            <button type="submit">Register</button>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-            <div class="card-footer card-header">
-                <a href="/login">Login</a>
+    {% include 'navbar.html' %}
+    <div class="container mt-4">
+      <div class="card col-10 col-sm-8 col-md-6 col-lg-4 m-auto">
+        <div class="card-header">Register into Programming Adda</div>
+        <div class="card-body">
+          <form action="" method="POST">
+            {% csrf_token %}
+            <div class="form-group mt-2">
+              <label for="name">Full name:</label>
+              <input type="text" class="form-control" id="name" name="name"
+                placeholder="Enter your full name">
+            </div>
+            <div class="form-group mt-2">
+              <label for="email">Email:</label>
+              <input type="text" class="form-control" id="email" name="email"
+                placeholder="Enter your email">
+            </div>
+            <div class="form-group mt-2">
+              <label for="password">Password:</label>
+              <div class="input-group">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+                <button type="button" class="btn btn-secondary ">
+                  <i class="bi bi-eye-slash" id="togglePassword"></i>
+                </button>
+              </div>
+            </div>
+            <div class="form-group mt-2">
+              <label for="cpassword">Confirm Password:</label>
+              <div class="input-group">
+                <input type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Enter your password again">
+                <button type="button" class="btn btn-secondary ">
+                  <i class="bi bi-eye-slash" id="toggleCPassword"></i>
+                </button>
+              </div>
             </div>
             
+            <div class="text-center" >
+              <button type="submit" class="btn btn-dark mt-3">Signup</button>
+            </div>
+            
+          </form>
         </div>
+        <div class="card-header text-end">
+          <a href="/login">Login</a>
+        </div>
+      </div>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+      var togglePassword = document.querySelector("#togglePassword");
+      var toggleCPassword = document.querySelector("#toggleCPassword");
+      var password = document.querySelector("#password");
+      var cpassword = document.querySelector("#cpassword");
+
+      togglePassword.addEventListener("click", function(e) {
+        var type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+        this.classList.toggle("bi-eye");
+      });
+      
+      toggleCPassword.addEventListener("click", function(e) {
+        var type = cpassword.getAttribute("type") === "password" ? "text" : "password";
+        cpassword.setAttribute("type", type);
+        this.classList.toggle("bi-eye");
+      });
+    });
+
+    </script>
 </body>
 </html>

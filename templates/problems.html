@@ -1,120 +1,62 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Problem</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}" />
-    <link rel="stylesheet" href="{% static 'addproblem.css' %}" />
-    <style>
-        .nav2
-        {
-            width: 100%;
-            height: 50px;
-            
-            overflow: hidden;
-            margin-top: 20px;
-            justify-content: space-between;
-           
-        }
-        .nav2 .content{
-            margin-right: 10px;
-            padding: 14px 16px;
-            float: right;
-            height: 100%;
-            width: 100px;
-            background-color: rgb(229, 227, 241);
-            text-align: center;
-            
-        }
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-          }
-          
-          td, th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-          }
-          
-          tr:nth-child(even) {
-            background-color: #dddddd;
-          }
-    </style>
-</head>
-<body>
+  </head>
+  <body>
 
-    <div class="container">
-        {% include 'navbar.html' %}
-        
-    </div>
-    <div class="nav2">
-        <div class="content">
-            <h5>Search  box</h5>
-        </div>
-        <div class="content">
-            <h5>Search Option</h5>
-        </div>
-        <div class="content">
-            <h5>Search Button</h5>
-        </div>
-    </div>
-    <table>
+    {% include 'navbar.html' %}
+    <div class="container-fluid">
+      <div class="row m-2 text-end">
+        <form action="">
+          <select name="searchOption" class="rounded d-block d-sm-inline
+            text-center mx-1" style="width: 120px; height: 40px;">
+            <option value="tag">tag</option>
+            <option value="judge">judge</option>
+          </select>
+          <input class="rounded d-block d-sm-inline text-center mx-1"
+            style="width: 150px; height: 40px;" name="searchText"
+            placeholder=""/>
+          <button class="btn btn-primary rounded d-block d-sm-inline text-center
+            mx-1" style="width: 120px; height: 40px;">Search</button>
+
+        </form>
+      </div>
+      <table class="table table-striped table-hover table-bordered"
+        style="min-width: 700px;">
         <tr>
-          <th>Problem</th>
-          <th>Tag</th>
-          <th>OJ name</th>
-          <th>Contributer</th>
-          <th>Additional Contributer</th>
+          <th class="text-center">Problem</th>
+          <th class="text-center">Tag</th>
+          <th class="text-center">OJ name</th>
+          <th class="text-center">Contributer</th>
+          <th class="text-center">Additional Contributer</th>
         </tr>
         <tr>
-            <td>sakina</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          
+          <td>sakina</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
         <tr>
-            <td>sakina</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+          <td>sakina</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
         <tr>
-            <td>sakina</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>sakina</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>sakina</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>sakina</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+          <td>sakina</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
       </table>
-      
-</body>
+    </div>
+  </body>
 </html>
