@@ -9,7 +9,7 @@
 </head>
 <body>
     {% include 'navbar.html' %}
-    <div class="container mt-4">
+    <div class="container mt-4" style="min-height: 100vh;">
       <div class="card col-10 col-sm-8 col-md-6 col-lg-4 m-auto">
         <div class="card-header">Register into Programming Adda</div>
         <div class="card-body">
@@ -55,6 +55,7 @@
         </div>
       </div>
     </div>
+    {% include 'footer.html' %}
     <script>
       document.addEventListener("DOMContentLoaded", function() {
       var togglePassword = document.querySelector("#togglePassword");

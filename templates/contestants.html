@@ -16,7 +16,7 @@
   <body>
 
     {% include 'navbar.html' %}
-    <div class="container-fluid">
+    <div class="container-fluid" style="min-height: 100vh;">
       <div class="row m-2 text-end">
         <form action="">
           {% csrf_token %}
@@ -79,5 +79,6 @@
         </ul>
       </nav>
     </div>
+    {% include 'footer.html' %}
   </body>
 </html>
