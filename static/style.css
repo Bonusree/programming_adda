@@ -1,0 +1,9 @@
+.my-eye-btn{
+    border:1px solid #ced4da;
+    background-color: white;
+    border-radius: 0px 4px 4px 0px;
+  }
+
+input:focus{
+    border-color: red;
+}

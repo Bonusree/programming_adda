@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <script src="{% static 'js/register.js' %}"></script>
 </head>
 <body>
     {% include 'navbar.html' %}
@@ -29,8 +31,8 @@
               <label for="password">Password:</label>
               <div class="input-group">
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
-                <button type="button" class="btn btn-secondary ">
-                  <i class="bi bi-eye-slash" id="togglePassword"></i>
+                <button type="button" class="my-eye-btn bi bi-eye-slash" id="togglePassword">
+                  <!-- <i class="bi bi-eye-slash"></i> -->
                 </button>
               </div>
             </div>
@@ -38,8 +40,8 @@
               <label for="cpassword">Confirm Password:</label>
               <div class="input-group">
                 <input type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Enter your password again">
-                <button type="button" class="btn btn-secondary ">
-                  <i class="bi bi-eye-slash" id="toggleCPassword"></i>
+                <button type="button" class="my-eye-btn bi bi-eye-slash" id="toggleCPassword">
+                  <!-- <i class="bi bi-eye-slash"></i> -->
                 </button>
               </div>
             </div>
@@ -56,26 +58,6 @@
       </div>
     </div>
     {% include 'footer.html' %}
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-      var togglePassword = document.querySelector("#togglePassword");
-      var toggleCPassword = document.querySelector("#toggleCPassword");
-      var password = document.querySelector("#password");
-      var cpassword = document.querySelector("#cpassword");
-
-      togglePassword.addEventListener("click", function(e) {
-        var type = password.getAttribute("type") === "password" ? "text" : "password";
-        password.setAttribute("type", type);
-        this.classList.toggle("bi-eye");
-      });
-      
-      toggleCPassword.addEventListener("click", function(e) {
-        var type = cpassword.getAttribute("type") === "password" ? "text" : "password";
-        cpassword.setAttribute("type", type);
-        this.classList.toggle("bi-eye");
-      });
-    });
-
-    </script>
+    
 </body>
 </html>

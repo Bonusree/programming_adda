@@ -6,8 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <!-- <link rel="stylesheet" href="{% static 'style.css' %}" />
-    <link rel="stylesheet" href="{% static 'login.css' %}" /> -->
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <!-- <link rel="stylesheet" href="{% static 'login.css' %}" /> -->
+    <script src="{% static 'js/register.js' %}"></script>
   </head>
   <body>
     {% include 'navbar.html' %}
@@ -27,8 +28,8 @@
               <div class="input-group">
                 <input type="password" class="form-control" id="password"
                   name="password" placeholder="Enter your password">
-                <button type="button" class="btn btn-secondary ">
-                  <i class="bi bi-eye-slash" id="togglePassword"></i>
+                <button type="button" class="my-eye-btn bi bi-eye-slash" id="togglePassword">
+                  <!-- <i class="bi bi-eye-slash" ></i> -->
                 </button>
               </div>
             </div>
@@ -44,20 +45,5 @@
       </div>
     </div>
     {% include 'footer.html' %}
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-      var togglePassword = document.querySelector("#togglePassword");
-      var password = document.querySelector("#password");
-
-      togglePassword.addEventListener("click", function(e) {
-        console.log("hello");
-        var type = password.getAttribute("type") === "password" ? "text" : "password";
-        password.setAttribute("type", type);
-        this.classList.toggle("bi-eye");
-        console.log(this.classList)
-      });
-    });
-
-    </script>
   </body>
 </html>
