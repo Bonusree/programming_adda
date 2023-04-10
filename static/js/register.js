@@ -1,18 +1,15 @@
-document.addEventListener("DOMContentLoaded", function() {
-    var togglePassword = document.querySelector("#togglePassword");
-    var toggleCPassword = document.querySelector("#toggleCPassword");
-    var password = document.querySelector("#password");
-    var cpassword = document.querySelector("#cpassword");
-
-    togglePassword.addEventListener("click", function(e) {
-        var type = password.getAttribute("type") === "password" ? "text" : "password";
-        password.setAttribute("type", type);
+$(document).ready(function() {
+    var password = $("#password");
+    var cpassword = $("#cpassword");
+    $("#togglePassword").on('click', function(){
+        var type = password.attr("type") === "password" ? "text" : "password";
+        password.attr("type", type);
         this.classList.toggle("bi-eye");
     });
     
-    toggleCPassword.addEventListener("click", function(e) {
-        var type = cpassword.getAttribute("type") === "password" ? "text" : "password";
-        cpassword.setAttribute("type", type);
+    $("#toggleCPassword").on('click', function(){
+        var type = cpassword.attr("type") === "password" ? "text" : "password";
+        cpassword.attr("type", type);
         this.classList.toggle("bi-eye");
     });
 });
