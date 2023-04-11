@@ -26,8 +26,4 @@ urlpatterns = [
     path('', include('editorials.urls')),
     path('', include('problems.urls')),
     path('admin/', admin.site.urls),
-    # path('',pa_views.home_view),
-    # path('login/',pa_views.login),
-    # path('register/',pa_views.register),
-    path('addproblem/',pa_views.addproblem),
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

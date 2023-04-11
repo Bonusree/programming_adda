@@ -22,5 +22,3 @@ def home(request):
 def register(request):
     return render(request,'register.html')
 
-def addproblem(request):
-    return render(request,'addproblem.html')

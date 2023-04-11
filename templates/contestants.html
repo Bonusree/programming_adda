@@ -9,11 +9,11 @@
   <div class="row m-2 text-end">
     <form action="">
       {% csrf_token %}
-      <input class="rounded d-block d-sm-inline text-center mx-1 border-1"
-        style="width: 150px; height: 40px;" type="text" name="searchText"
-        placeholder=""/>
+      <input class="rounded d-block d-sm-inline text-center border-1 py-1"
+         type="text" name="searchText"
+        placeholder="User name"/>
       <button class="btn btn-dark rounded d-block d-sm-inline text-center
-        mx-1" style="width: 120px; height: 40px;">Search</button>
+        " type="submit" >Search</button>  
     </form>
   </div>
   <table class="table table-striped table-hover table-bordered"
