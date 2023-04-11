@@ -9,6 +9,7 @@
       <title>Home</title>
     {% endblock %}
     {% block style %}
+      <link rel="stylesheet" href="{% static 'style.css' %}" />
     {% endblock %}
     <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css">
@@ -17,7 +18,6 @@
       rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'style.css' %}" />
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
     <script
       src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -52,7 +52,7 @@
               <a class="nav-link fs-5 {% if request.path == '' %} active{% endif %}" href="#">Blogs</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fs-5 {% if request.path == '' %} active{% endif %}" href="#">Editorials</a>
+              <a class="nav-link fs-5 {% if request.path == '/editorials/' %} active{% endif %}" href="/editorials/">Editorials</a>
             </li>
             <li class="nav-item">
               <a class="nav-link fs-5 {% if request.path == '' %} active{% endif %}" href="#">Others</a>
@@ -60,10 +60,10 @@
           </ul>
           <ul class="navbar-nav mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="/login/">Login</a>
+              <a class="nav-link {% if request.path == '/login/' %}active{% endif %}" href="/login/">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/register/">Registration</a>
+              <a class="nav-link {% if request.path == '/register/' %}active{% endif %}" href="/register/">Registration</a>
             </li>
           </ul>
         </div>

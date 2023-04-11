@@ -1,14 +1,5 @@
 {% extends 'base.html' %}
 
-{% block style %}
-  <style>
-    .pagination .page-item.active .page-link {
-      background-color: #212529;
-      border-color: #212529;
-    }
-  </style>
-{% endblock %}
-
 {% block title %}
   <title>Problems</title>
 {% endblock %}
@@ -24,7 +15,7 @@
         <option value="judge">judge</option>
       </select>
       <input class="rounded d-block d-sm-inline text-center mx-1 border-1"
-        style="width: 150px; height: 40px;" name="searchText"
+        style="width: 150px; height: 40px;" type="text" name="searchText"
         placeholder=""/>
       <button class="btn btn-dark rounded d-block d-sm-inline text-center
         mx-1" style="width: 120px; height: 40px;">Search</button>
