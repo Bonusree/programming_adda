@@ -1,51 +1,40 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}" />
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <!-- <link rel="stylesheet" href="{% static 'login.css' %}" /> -->
-    <script src="{% static 'js/register.js' %}"></script>
-  </head>
-  <body>
-    {% include 'navbar.html' %}
-    <div class="container mt-4" style="min-height: 100vh;">
-      <div class="card col-10 col-sm-8 col-md-6 col-lg-4 m-auto">
-        <div class="card-header">Login into Programming Adda</div>
-        <div class="card-body">
-          <form action="{% url 'home' %}" method="POST">
-            {% csrf_token %}
-            <div class="form-group mt-2">
-              <label for="email">Email:</label>
-              <input type="text" class="form-control" id="email" name="email"
-                placeholder="Enter your email">
-            </div>
-            <div class="form-group mt-2">
-              <label for="password">Password:</label>
-              <div class="input-group">
-                <input type="password" class="form-control" id="password"
-                  name="password" placeholder="Enter your password">
-                <button type="button" class="my-eye-btn bi bi-eye-slash" id="togglePassword">
-                  <!-- <i class="bi bi-eye-slash" ></i> -->
-                </button>
-              </div>
-            </div>
-            <div class="text-center">
-              <button type="submit" class="btn btn-dark mt-3">Login</button>
-            </div>
+{% extends 'base.html' %}
 
-          </form>
+{% block title %}
+  <title>Login</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4" style="min-height: 100vh;">
+  <div class="card col-10 col-sm-8 col-md-6 col-lg-4 m-auto">
+    <div class="card-header">Login into Programming Adda</div>
+    <div class="card-body">
+      <form action="{% url 'home' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group mt-2">
+          <label for="email">Email:</label>
+          <input type="text" class="form-control" id="email" name="email"
+            placeholder="Enter your email">
         </div>
-        <div class="card-header text-end">
-          <a href="/register">Register</a>
+        <div class="form-group mt-2">
+          <label for="password">Password:</label>
+          <div class="input-group">
+            <input type="password" class="form-control" id="password"
+              name="password" placeholder="Enter your password">
+            <button type="button" class="my-eye-btn bi bi-eye-slash" id="togglePassword">
+              <!-- <i class="bi bi-eye-slash" ></i> -->
+            </button>
+          </div>
         </div>
-      </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-dark mt-3">Login</button>
+        </div>
+
+      </form>
     </div>
-    {% include 'footer.html' %}
-  </body>
-</html>
+    <div class="card-header text-end">
+      <a href="/register">Register</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

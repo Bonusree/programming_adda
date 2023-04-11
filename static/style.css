@@ -1,9 +1,13 @@
-.my-eye-btn{
-    border:1px solid #ced4da;
-    background-color: white;
-    border-radius: 0px 4px 4px 0px;
-  }
 
+/* this for password show hide btn  */
+.my-eye-btn{
+  border:1px solid #ced4da;
+  background-color: white;
+  border-radius: 0px 4px 4px 0px;
+}
+
+
+/* change all input box focus  */
 textarea:focus,
 input[type="text"]:focus,
 input[type="password"]:focus,
@@ -24,4 +28,10 @@ input[type="color"]:focus,
   /* box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 4px rgba(27, 213, 238, 0.6); */
   box-shadow: none;
   outline: 0 none;
+}
+
+/* this for page numbering  */
+.pagination .page-item.active .page-link {
+  background-color: #212529;
+  border-color: #212529;
 }
