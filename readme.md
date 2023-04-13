@@ -21,3 +21,31 @@
 [text for show](link)
 example > [mestu paul](github.com/Mestu-Paul)
 ```
+
+
+## Installed Python Modules
+
+- Django 
+
+```
+python -m pip install Django
+```
+
+- Jquery on Django
+
+```
+pip install django-jquery
+```
+
+- Python SQL Server Connector
+
+```
+pip install pyodbc
+```
+
+- Django SQL Server Connector
+
+```
+pip install django-pyodbc-azure
+```
+
