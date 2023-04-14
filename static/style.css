@@ -6,6 +6,24 @@
   border-radius: 0px 4px 4px 0px;
 }
 
+/* global message for user  */
+.global-message{
+  border-radius: 4px;
+  text-align: center;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+.global-message.error{
+  border: 1px solid #ff7991;
+  background-color: pink;
+}
+.global-message.success{
+  border: 1px solid #68d57b;
+  background-color: #9eff9275;
+}
+
+
 
 /* change all input box focus  */
 textarea:focus,

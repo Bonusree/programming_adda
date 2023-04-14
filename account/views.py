@@ -12,12 +12,12 @@ def register(request):
         name=request.POST.get("name")
         email=request.POST.get("email")
         password=request.POST.get("password")
-        c_password=request.POST.get("c_password")
-        if password!=c_password:
-            msg="password doesn't matched"
-            return render(request, 'login.html', {'msg':msg})
-        my_user=User.objects.create_user(name, email, password)
-        my_user.save()
+        cpassword=request.POST.get("cpassword")
+        if password!=cpassword:
+            context = {'type':'error','message':'missmatch password!'}
+            return render(request, 'register.html', context=context)
+        # my_user=User.objects.create_user(name, email, password)
+        # my_user.save()
         pass
     else:
         return render(request, 'register.html')
