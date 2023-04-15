@@ -49,3 +49,6 @@ pip install pyodbc
 pip install django-pyodbc-azure
 ```
 
+- pip install  pymongo pymongo==3.12.3
+- djongo
+
