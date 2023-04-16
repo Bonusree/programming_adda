@@ -18,7 +18,8 @@ def register(request):
             return render(request, 'register.html', context=context)
         # my_user=User.objects.create_user(name, email, password)
         # my_user.save()
-        pass
+        context = {'type':'success','message':'You registered successfully. Now login here.'}
+        return render(request, 'login.html', context=context)
     else:
         return render(request, 'register.html')
 def login(request):

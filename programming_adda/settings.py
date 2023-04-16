@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'programming_adda.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'mydb',
+        'NAME': 'Programming_adda',
     }
 }
 
