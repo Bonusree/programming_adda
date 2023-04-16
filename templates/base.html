@@ -69,8 +69,12 @@
         </div>
       </div>
     </nav>
-    {% block content %}
-    {% endblock %}
+    <div style="min-height: 100vh;">
+      <div class="global-message {% if type == 'error' %} error {% elif type == 'success' %} success {% endif %}" >{{message}}</div>
+      
+      {% block content %}
+      {% endblock %}
+    </div>  
     <footer class="footer bottom bottom bg-light py-2">
       <div class="container text-center">
         <span class="text-muted"><a href="/">Programming Adda</a> © Copyright
