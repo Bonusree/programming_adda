@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
+from .models import Account
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 
@@ -16,8 +17,8 @@ def register(request):
         if password!=cpassword:
             context = {'type':'error','message':'missmatch password!'}
             return render(request, 'register.html', context=context)
-        # my_user=User.objects.create_user(name, email, password)
-        # my_user.save()
+        my_user=Account(name=name, email=email, password=password,role='contestant')
+        my_user.save()
         context = {'type':'success','message':'You registered successfully. Now login here.'}
         return render(request, 'login.html', context=context)
     else:
