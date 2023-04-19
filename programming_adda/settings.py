@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'contestants',
     'editorials',
     'problems',
+    'djongo',
 ]
 
 MIDDLEWARE = [
