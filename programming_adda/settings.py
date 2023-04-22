@@ -86,6 +86,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'Programming_adda',
+        'ENFORCE_SCHEMA': False,
     }
 }
 

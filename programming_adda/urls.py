@@ -20,7 +20,7 @@ from django.urls import include,path
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
-    path('',pa_views.home, name='home'),
+    # path('',pa_views.home, name='home'),
     path('', include('account.urls')),
     path('', include('blogs.urls')),
     path('', include('contestants.urls')),
