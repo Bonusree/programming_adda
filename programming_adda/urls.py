@@ -26,5 +26,7 @@ urlpatterns = [
     path('', include('contestants.urls')),
     path('', include('editorials.urls')),
     path('', include('problems.urls')),
+    path('', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
+   
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

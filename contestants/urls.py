@@ -4,4 +4,5 @@ from contestants import views
 
 urlpatterns = [
     path('contestants/',views.contestants, name='contestants'),
+    path('profile/',views.profile, name='profile'),
 ]

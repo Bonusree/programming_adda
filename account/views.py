@@ -73,13 +73,11 @@ def SignupPage(request):
         pass1=request.POST.get('password')
         pass2=request.POST.get('cpassword')
         print(pass1 ,pass2)
-        if pass1!=pass2:
-            return HttpResponse("Your password and confrom password are not Same!!")
-        else:
+        
 
-            my_user=User.objects.create_user(email,email,pass1)
-            my_user.save()
-            return redirect('login')
+        my_user=User.objects.create_user(email, email,pass1)
+        my_user.save()
+        return redirect('login')
         
 
 
@@ -94,9 +92,11 @@ def homePage(request):
         print(user)
         if user is not None:
             login(request,user)
-            return render (request,'home.html')
+            msg='successful'
+            return render (request,'home.html', {'msg':msg})
         else:
-            return HttpResponse ("Username or Password is incorrect!!!")
+            msg="Username or Password is incorrect!!!"
+            return render (request,'login.html', {'msg':msg})
 
     return render (request,'home.html')
 
