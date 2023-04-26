@@ -103,3 +103,15 @@ def homePage(request):
 def LogoutPage(request):
     logout(request)
     return redirect('login')
+
+
+
+# temporary
+def add_editorial(request):
+    return render(request, 'add_editorial.html')
+
+def add_blogs(request):
+    return render(request, 'add_blogs.html')
+
+def add_problems(request):
+    return render(request, 'add_problems.html')
