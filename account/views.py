@@ -1,4 +1,4 @@
-# from django.shortcuts import render
+ # from django.shortcuts import render
 # from django.shortcuts import render,HttpResponse,redirect
 # from django.contrib.auth.models import User
 # from .models import Account
@@ -93,10 +93,10 @@ def homePage(request):
         if user is not None:
             login(request,user)
             msg='successful'
-            return render (request,'home.html', {'msg':msg})
+            return render (request,'home.html', {'message':msg})
         else:
             msg="Username or Password is incorrect!!!"
-            return render (request,'login.html', {'msg':msg})
+            return render (request,'login.html', {'message':msg})
 
     return render (request,'home.html')
 
