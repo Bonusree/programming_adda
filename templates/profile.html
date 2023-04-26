@@ -1,9 +1,194 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  <title>Contestant</title>
+  <title>profile</title>
 {% endblock %}
 
 {% block content %}
+<div class="container">
 
-{% endblock %}
+  <!-- navbar -->
+
+  <ul class="nav nav-tabs nav-justified">
+    <li class="nav-item">
+      <a class="nav-link active" href="#section1">overview</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#section2">blogs</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#section3">editorials</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#section4">sites</a>
+    </li>
+  </ul>
+</div>
+
+
+<!-- left side -->
+
+<div class="container-fluid m-5" style="width: 93%;" >
+  <div class="row">
+    <div class="col-8" >
+      <div id="section1" class="card text-dark bg-light m-4" style="max-width: 50rem;">
+        <div class="card-header">Editorials</div>
+        <div  class="card m-4 p-3">
+          <h5 class="card-title">Success card title</h5>
+        </div>
+        <div  class="card m-4 p-3">
+          <h5 class="card-title">Success card title</h5>
+        </div>
+      </div>
+      <div id="section2" class="card text-dark bg-light m-4" style="max-width: 50rem;">
+        <div class="card-header">blogs</div>
+        <div  class="card m-4 p-3">
+          <h5 class="card-title m-2">Success card title</h5>
+        </div>
+        <div  class="card m-4 p-3">
+          <h5 class="card-title">Success card title</h5>
+        </div>
+      </div>
+      <div id="section3" class="card text-dark bg-light m-4" style="max-width: 50rem;">
+        <div class="card-header">Sites</div>
+        <div  class="card m-4 p-3">
+          <h5 class="card-title m-2">Success card title</h5>
+        </div>
+        <div  class="card m-4 p-3">
+          <h5 class="card-title">Success card title</h5>
+        </div>
+      </div>
+    </div>
+
+
+<!-- edit profile -->
+
+    <div class="col-4 " style="background-color:lavender;">
+      <img class="card-img-top mr-3 mt-3 rounded-circle" src="/static/imgs/editorials.jpg" alt="Jane Doe" class="rounded-circle" style="width: 400px;">
+        <div class="card-body">
+          <div class="container mt-3">
+            <h3>Name of user</h3>
+            <p>Bio</p>
+            <ul class="nav nav-tabs nav-justified">
+              <li class="nav-item">
+                <i class='fas fa-user-friends'></i>
+                <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#followers">
+                  followers<i class='fas fa-user-friends'></i>
+                </button>
+              </li>
+              <li class="nav-item">
+                <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#following">
+            following
+          </button>
+              </li>
+            </ul>
+
+          <button type="button" class="btn btn-outline-secondary m-3" data-bs-toggle="modal" data-bs-target="#editProfile" style="width: 80%;">
+            Edit Profile
+          </button>
+        
+          <button type="button" class="btn btn-outline-secondary m-3" data-bs-toggle="modal" data-bs-target="#addsite" style="width: 80%;">
+            Add cites
+          </button>
+        </div>
+
+<!-- The Modal -->
+
+ <!-- edit profile modal -->
+<div class="modal" id="editProfile">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+       
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form action="/">
+          <div class="mb-3 mt-3">
+            <label for="Name" class="form-label">Full Name:</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter Your full name" name="name">
+          </div>
+          <div class="mb-3 mt-3">
+            <label for="bio">bios:</label>
+          <textarea class="form-control" rows="5" id="bio" name="text"></textarea>
+          </div>
+          <div class="mb-3 mt-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" class="form-control" id="email" placeholder="public your email" name="email">
+          </div>
+          <div class="mb-3">
+            <label for="pwd" class="form-label">Password:</label>
+            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
+          </div>
+          <!-- <div class="form-check mb-3">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" name="remember"> Remember me
+            </label>
+          </div> -->
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+
+      <!-- Modal foote  r -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+  
+<div class="modal" id="addsite">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+       
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form action="/">
+          <div class="mb-3 mt-3">
+            <label for="website" class="form-label">Website:</label>
+            <input type="text" class="form-control" id="website" placeholder="website" name="website">
+          </div>
+
+          <div class="mb-3 mt-3">
+            <label for="socialsite" class="form-label">Social site:</label>
+            <input type="site" class="form-control mb-3" id="site" placeholder="" name="site1" >
+            <input type="site" class="form-control mb-3" id="site" placeholder="" name="site2">
+            <input type="site" class="form-control mb-3" id="site" placeholder="" name="site3">
+          </div>
+          
+          <!-- <div class="form-check mb-3">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" name="remember"> Remember me
+            </label>
+          </div> -->
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+
+      <!-- Modal foote  r -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+    </div>
+    
+  </div>
+</div>
+
+
+ 
+{% endblock%}
