@@ -201,6 +201,22 @@
   </div>
 </div>
 
+<script>
+$(document).ready(function() {
+  // Get all menu items
+  var menuItems = $('.nav-link');
 
+  // Add click event listener to each menu item
+  menuItems.click(function() {
+    // Remove active class from all menu items
+    menuItems.removeClass('active');
+
+    // Add active class to the clicked menu item
+    $(this).addClass('active');
+  });
+});
+
+
+</script>
  
 {% endblock%}
