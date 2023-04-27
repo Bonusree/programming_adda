@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'contestants',
     'editorials',
     'problems',
+    'djongo',
 ]
 
 MIDDLEWARE = [
@@ -85,6 +86,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'Programming_adda',
+        'ENFORCE_SCHEMA': False,
     }
 }
 
@@ -130,3 +132,5 @@ STATICFILES_DIRS = [STATIC_DIR,]
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_REDIRECT_URL='/home'
+LOGOUT_REDIRECT_URL='/login'

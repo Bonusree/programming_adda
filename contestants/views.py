@@ -10,3 +10,7 @@ def contestants(request):
         pass
     else:
         return render(request, 'contestants.html')
+
+def profile(request):
+   
+    return render(request, 'profile.html')
