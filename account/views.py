@@ -92,11 +92,11 @@ def homePage(request):
         print(user)
         if user is not None:
             login(request,user)
-            msg='successful'
-            return render (request,'home.html', {'message':msg})
+            context = {'type':'success','message':'Successfully you are logged in.'}
+            return render (request,'home.html', context=context)
         else:
-            msg="Username or Password is incorrect!!!"
-            return render (request,'login.html', {'message':msg})
+            context = {'type':'error','message':'Username or Password is incorrect!'}
+            return render (request,'login.html', context=context)
 
     return render (request,'home.html')
 

@@ -80,7 +80,7 @@
       </div>
     </nav>
     <div style="min-height: 100vh;">
-      <div class="global-message {% if type == 'error' %} error {% elif type == 'success' %} success {% endif %}" >{{message}}</div>
+      <div class="global-message {{type}}" >{{message}}</div>
       
       {% block content %}
       {% endblock %}
