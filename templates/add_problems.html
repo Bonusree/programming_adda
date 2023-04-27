@@ -1,11 +1,55 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  <title>Blogs</title>
+  <title>Add Problem</title>
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid bg-primary" style="min-height: 100vh;">
-  
+<div class="container mt-4" style="min-height: 100vh;">
+    <div class="card col-12 col-md-6 col-lg-4 m-4" style="width:90%;">
+        <div class="card-header">Add new problem</div>
+        <div class="card-body m-4">
+            <form action="{% url 'home' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group mt-2">
+                    <label for="problemName">Problem name</label>
+                    <input type="text" class="form-control"
+                        id="problemName" name="problemName"
+                        placeholder="Enter problem name">
+                </div>
+                <div class="form-group mt-2">
+                    <label for="sourceLink">Problem source link</label>
+                    <input type="sourceLink" class="form-control"
+                        id="sourceLink" name="sourceLink"
+                        aria-describedby="sourceLinkHelp"
+                        placeholder="Problem source link">
+                </div>
+                <div class="form-group mt-2">
+                    <label class="d-block" for="judgeName">Judge name</label>
+                    <select name="judgeName" class="p-2" id="judgeName">
+                        <option value="cf">codeforces</option>
+                        <option value="loj">lightoj</option>
+                    </select>
+                </div>
+                <div class="form-group mt-2">
+                    <label class="d-block" for="tag">Tag</label>
+                    <select name="tag" class="p-2">
+                        <option value="bs">binary search</option>
+                        <option value="graph">graph</option>
+                    </select>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="comment">Additional comment</label>
+                    <textarea type="text" class="form-control"
+                        id="comment" name="comment"
+                        aria-describedby="commentHelp"></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-dark mt-3">Add</button>
+                    <a type="button" class="btn btn-dark mt-3" href="/problems/">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
