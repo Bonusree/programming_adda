@@ -3,6 +3,7 @@ from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from .models import Problem
 from .models import Tag
 import json
@@ -51,7 +52,7 @@ def addproblem(request):
             tag, _ = Tag.objects.get_or_create(name=tag_name)
             problem.tags.add(tag)
             
-    return render(request,'add_problem.html')
+    return render(request,'add_problems.html')
 
 def filterProblem(request):
     if request.method=="POST":
@@ -74,4 +75,33 @@ def filterProblem(request):
         return render(request, "problems.html", {"problems": problems})
     
     return redirect('problems')
-    pass
+
+
+def searchSuggestion(request):
+    search_option = request.GET.get('searchOption', '')
+    search_text = request.GET.get('searchText', '')
+    print('search option',search_option)
+    print('search text',search_text)
+    
+    results = []
+    if search_option == "tag":
+        if search_text:
+            tags = Tag.objects.filter(name__icontains=search_text)
+            results = [tag.name for tag in tags]
+            print("result",results)     
+            pass
+        else:
+            tags = Tag.objects.all()
+            results = [tag.name for tag in tags]
+            print("result",results)
+            pass
+    elif search_option == "judge":
+        if search_text:
+            problems = Problem.objects.filter(judge__icontains=search_text,judge__startswith=search_text)
+            results = [problem.judge for problem in problems]
+            print("result",results)     
+        else:
+            problems = Problem.objects.all()
+            results = [problem.judge for problem in problems]
+            pass
+    return JsonResponse(results, safe=False)
