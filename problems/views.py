@@ -11,7 +11,7 @@ def problems(request):
     if request.method=="POST":
         pass
     else:
-        print("----------- now get request ---------- ")
+        # print("----------- now get request ---------- ")
         allProblems = Problem.objects.all()
         context = {'problems':[]}
         for p in allProblems:
@@ -21,13 +21,12 @@ def problems(request):
             for t in p.tags.all():
                 problem['tags'].append(t.name)
             context['problems'].append(problem)
-        print("context-----------\n",context)
+        # print("context-----------\n",context)
         return render(request, 'problems.html',context=context)
     
 @login_required
 def addproblem(request):
     if request.method=="POST":
-        print("----------- now post request ---------- ")
         problem_name = request.POST.get('problemName')
         problem_link = request.POST.get('problemLink')
         problem_judge = request.POST.get('judge')
@@ -35,12 +34,12 @@ def addproblem(request):
         comment = request.POST.get('comment')
         user = request.user
         
-        print(problem_name)
-        print(problem_link)
-        print(problem_judge)
-        print(problem_tags)
-        print(comment)
-        print("user :",user)
+        # print(problem_name)
+        # print(problem_link)
+        # print(problem_judge)
+        # print(problem_tags)
+        # print(comment)
+        # print("user :",user)
         
         # Create a new problem object
         problem = Problem(name=problem_name, link=problem_link,judge=problem_judge, comment=comment, user=user)
@@ -48,8 +47,31 @@ def addproblem(request):
 
         # Add tags to the problem object
         for tag_name in problem_tags:
-            print("tag_name",tag_name)
+            # print("tag_name",tag_name)
             tag, _ = Tag.objects.get_or_create(name=tag_name)
             problem.tags.add(tag)
             
     return render(request,'add_problem.html')
+
+def filterProblem(request):
+    if request.method=="POST":
+        search_option = request.POST.get("searchOption")
+        search_text = request.POST.get("searchText")
+        # Filter the data based on the search option and search text
+        if search_option == "tag":
+            filtered_problems = Problem.objects.filter(tags__name__icontains=search_text)
+        elif search_option == "judge":
+            filtered_problems = Problem.objects.filter(judge__icontains=search_text)
+        # Create a list of dictionaries for the filtered problems
+        problems = []
+        for p in filtered_problems:
+            problem = {'name': p.name, 'link': p.link, 'tags': [], 'comment': p.comment,
+                       'oj': p.judge, 'contributor': p.user}
+            for t in p.tags.all():
+                problem['tags'].append(t.name)
+            problems.append(problem)
+        # Render the template with the filtered data
+        return render(request, "problems.html", {"problems": problems})
+    
+    return redirect('problems')
+    pass
