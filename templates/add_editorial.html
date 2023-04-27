@@ -9,7 +9,7 @@
     <div class="card col-12 col-md-6 col-lg-4 m-auto" style="width:90%;">
         <div class="card-header">Add new Editorial</div>
         <div class="card-body">
-            <form action="{% url 'addproblem' %}" method="POST">
+            <form action="{% url 'after_add_editorial' %}" method="POST">
                 {% csrf_token %}
                 <div class="form-group mt-2">
                     <label for="problemName">Problem name *</label>
