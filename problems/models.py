@@ -11,6 +11,7 @@ class Tag(models.Model):
 class Problem(models.Model):
     name = models.CharField(max_length=255)
     link = models.URLField()
+    judge = models.CharField(max_length=255)
     tags = models.ManyToManyField(Tag)
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

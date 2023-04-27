@@ -26,11 +26,11 @@
                 </div>
                 <div class="form-group mt-2">
                     <label for="onlinejudge">Online Judge *</label>
-                    <select class="form-select" aria-label="Default select example" >
+                    <select class="form-select" aria-label="Default select example" name="judge" id="judge">
                         <option selected>Selcet Judge</option>
-                        <option value="cf">Codeforces</option>
-                        <option value="loj">Light OJ</option>
-                        <option value="toph">Toph</option>
+                        <option value="Codeforces">Codeforces</option>
+                        <option value="Light OJ">Light OJ</option>
+                        <option value="Toph">Toph</option>
                     </select>
                 </div>
                 <div class="form-group mt-2">
@@ -80,6 +80,7 @@
                 data: {
                     'problemName': $('#problemName').val(),
                     'problemLink': $('#problemLink').val(),
+                    'judge': $('#judge').val(),
                     'searchTags': JSON.stringify(searchTags),
                     'comment': $('#comment').val(),
                     'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
