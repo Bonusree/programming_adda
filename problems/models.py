@@ -19,7 +19,7 @@ class Judge(models.Model):
 class Problem(models.Model):
     name = models.CharField(max_length=255)
     link = models.URLField()
-    judge = models.ForeignKey(Judge, on_delete=models.CASCADE)
+    judge = models.ForeignKey(Judge, on_delete=models.CASCADE, null=True)
     tags = models.ManyToManyField(Tag)
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

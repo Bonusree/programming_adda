@@ -4,11 +4,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from .models import Problem
-from .models import Tag
+from .models import Problem,Tag,Judge
 import json
 
 def problems(request):
+    # Problem.objects.all().delete()
+    # Tag.objects.all().delete()
+    # Judge.objects.all().delete()
     if request.method=="POST":
         pass
     else:
@@ -42,8 +44,11 @@ def addproblem(request):
         # print(comment)
         # print("user :",user)
         
+        judge,_ = Judge.objects.get_or_create(name=problem_judge)
+        # print("judge : --------------- ",judge)
+        
         # Create a new problem object
-        problem = Problem(name=problem_name, link=problem_link,judge=problem_judge, comment=comment, user=user)
+        problem = Problem(name=problem_name, link=problem_link,judge=judge, comment=comment, user=user)
         problem.save()
 
         # Add tags to the problem object
@@ -51,6 +56,7 @@ def addproblem(request):
             # print("tag_name",tag_name)
             tag, _ = Tag.objects.get_or_create(name=tag_name)
             problem.tags.add(tag)
+        return redirect('problems')
             
     return render(request,'add_problems.html')
 
