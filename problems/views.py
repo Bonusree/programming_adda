@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from .models import Problem,Tag,Judge
+from django.db.utils import DatabaseError
 import json
 
 def problems(request):
@@ -57,8 +58,16 @@ def addproblem(request):
             tag, _ = Tag.objects.get_or_create(name=tag_name)
             problem.tags.add(tag)
         return redirect('problems')
-            
-    return render(request,'add_problems.html')
+    
+    # get request
+    try:
+        tags = Tag.objects.filter(valid=1)
+        context = {'tags':[tag.name for tag in tags]}
+    except Exception as e:
+        context = {'type':'error','message':f'error:{e}'}
+    return render(request,'add_problems.html',context=context)
+        
+    
 
 def filterProblem(request):
     if request.method=="POST":
@@ -111,3 +120,27 @@ def searchSuggestion(request):
             results = [problem.judge for problem in problems]
             pass
     return JsonResponse(results, safe=False)
+
+def newTagSuggestion(request):
+    if request.method=="POST":
+        newtag = request.POST.get('newtag')
+        if not newtag:
+            context={'type':'error','message':'Tag is empty'}
+            return render(request,'add_problems.html',context=context)
+            
+        context={'type':'success','message':'Your request is pending. Please wait for approval.'}
+        try:
+            tag = Tag(name=newtag,valid=1)
+            tag.save()
+            try:
+                tags = Tag.objects.filter(valid=1)
+                context = {'type':'success','message':'Thanks for your contribution','tags':[tag.name for tag in tags]}
+            except Exception as e:
+                context = {'type':'error','message':f'error:{e}'}
+            return render(request,'add_problems.html',context=context)
+        except Exception as e:
+            context['type']='error'
+            context['message']=e
+        return render(request,'add_problems.html',context=context)
+    else:
+        print("newtag get request---------------")
