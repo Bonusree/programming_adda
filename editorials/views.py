@@ -9,11 +9,21 @@ from .models import Tag
 import json
 # @login_required
 def editorials(request):
-    if request.method=="POST":
-        pass
-    else:
-        return render(request, 'editorials.html')
+    
+    data= add_editorials.objects.all()
+    problems=[]
+    for p in data:
+        problem = {'name': p.name, 'link': p.link, 'code': p.code, 'solution':p.tutorial,
+                       'oj': p.judge, 'contributor': p.user}
+            
+        problems.append(problem)
+    return render(request, "editorials.html", {"problems": problems})
 
+def search_editorial(request):
+    if request.method=="POST":
+        se
+    else:
+        return render(request, 'home.html')
 @login_required    
 def add_editorial(request):
     return render(request, 'add_editorial.html')
@@ -40,3 +50,5 @@ def after_add_editorial(request):
         
     else:
         return render(request, 'add_editorials.html')
+    
+
