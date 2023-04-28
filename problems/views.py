@@ -4,11 +4,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from .models import Problem
-from .models import Tag
+from .models import Problem,Tag,Judge
+from django.db.utils import DatabaseError
 import json
 
 def problems(request):
+    # Problem.objects.all().delete()
+    # Tag.objects.all().delete()
+    # Judge.objects.all().delete()
     if request.method=="POST":
         pass
     else:
@@ -42,8 +45,11 @@ def addproblem(request):
         # print(comment)
         # print("user :",user)
         
+        judge,_ = Judge.objects.get_or_create(name=problem_judge)
+        # print("judge : --------------- ",judge)
+        
         # Create a new problem object
-        problem = Problem(name=problem_name, link=problem_link,judge=problem_judge, comment=comment, user=user)
+        problem = Problem(name=problem_name, link=problem_link,judge=judge, comment=comment, user=user)
         problem.save()
 
         # Add tags to the problem object
@@ -51,8 +57,17 @@ def addproblem(request):
             # print("tag_name",tag_name)
             tag, _ = Tag.objects.get_or_create(name=tag_name)
             problem.tags.add(tag)
-            
-    return render(request,'add_problems.html')
+        return redirect('problems')
+    
+    # get request
+    try:
+        tags = Tag.objects.filter(valid=1)
+        context = {'tags':[tag.name for tag in tags]}
+    except Exception as e:
+        context = {'type':'error','message':f'error:{e}'}
+    return render(request,'add_problems.html',context=context)
+        
+    
 
 def filterProblem(request):
     if request.method=="POST":
@@ -105,3 +120,27 @@ def searchSuggestion(request):
             results = [problem.judge for problem in problems]
             pass
     return JsonResponse(results, safe=False)
+
+def newTagSuggestion(request):
+    if request.method=="POST":
+        newtag = request.POST.get('newtag')
+        if not newtag:
+            context={'type':'error','message':'Tag is empty'}
+            return render(request,'add_problems.html',context=context)
+            
+        context={'type':'success','message':'Your request is pending. Please wait for approval.'}
+        try:
+            tag = Tag(name=newtag,valid=1)
+            tag.save()
+            try:
+                tags = Tag.objects.filter(valid=1)
+                context = {'type':'success','message':'Thanks for your contribution','tags':[tag.name for tag in tags]}
+            except Exception as e:
+                context = {'type':'error','message':f'error:{e}'}
+            return render(request,'add_problems.html',context=context)
+        except Exception as e:
+            context['type']='error'
+            context['message']=e
+        return render(request,'add_problems.html',context=context)
+    else:
+        print("newtag get request---------------")
