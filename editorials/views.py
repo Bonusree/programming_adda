@@ -32,9 +32,9 @@ def after_add_editorial(request):
                                  judge=problem_judge, tutorial=tutorial, code=code, user=user)
         editorial.save()
         for tag_name in problem_tags:
-            print("tag_name",tag_name)
+            # print("tag_name",tag_name)
             tag, _ = Tag.objects.get_or_create(name=tag_name)
-            add_editorials.tags.add(tag)
+            editorial.tags.add(tag)
         
         return render(request, 'profile.html')
         

@@ -97,18 +97,19 @@
             });
             $.ajax({
                 type: "POST",
-                url: "{% url 'addproblem' %}",
+                url: "{% url 'after_add_editorial' %}",
                 data: {
                     'problemName': $('#problemName').val(),
                     'problemLink': $('#problemLink').val(),
                     'judge': $('#judge').val(),
                     'searchTags': JSON.stringify(searchTags),
                     'tutorial': $('#tutorial').val(),
+                    'code': $('#code').val(),
                     'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
                 },
                 success: function(data) {
                     // handle success
-                    window.location.href = "/problems/";
+                    window.location.href = "/profile/";
                 },
                 error: function(xhr, status, error) {
                     // handle error
