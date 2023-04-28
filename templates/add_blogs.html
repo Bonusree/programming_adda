@@ -1,49 +1,49 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  <title>Add Problem</title>
+  <title>Add Blog</title>
 {% endblock %}
 
 {% block content %}
 <div class="container mt-4" style="min-height: 100vh;">
-    <div class="card col-12 col-md-6 col-lg-4 m-auto">
-        <div class="card-header">Add new problem</div>
+    <div class="card col-12 col-md-6 col-lg-4 m-auto" style="width:90%;">
+        <div class="card-header">Add new blog</div>
         <div class="card-body">
-            <form action="{% url 'home' %}" method="POST">
+            <form action="{% url 'addproblem' %}" method="POST">
                 {% csrf_token %}
                 <div class="form-group mt-2">
-                    <label for="problemName">Problem name</label>
+                    <label for="blogName">blog name *</label>
                     <input type="text" class="form-control"
-                        id="problemName" name="problemName"
-                        placeholder="Enter problem name">
+                        id="blogName" name="blogName" 
+                        placeholder="Enter blog name" >
                 </div>
                 <div class="form-group mt-2">
-                    <label for="sourceLink">Problem source link</label>
-                    <input type="sourceLink" class="form-control"
-                        id="sourceLink" name="sourceLink"
-                        aria-describedby="sourceLinkHelp"
-                        placeholder="Problem source link">
+                    <label for="blogLink">blog source link *</label>
+                    <input type="blogLink" class="form-control"
+                    id="blogLink" name="blogLink"
+                        aria-describedby="blogLinkHelp" 
+                        placeholder="blog source link">
                 </div>
                 <div class="form-group mt-2">
-                    <label class="d-block" for="judgeName">Judge name</label>
-                    <select name="judgeName" class="p-2" id="judgeName">
-                        <option value="cf">codeforces</option>
-                        <option value="loj">lightoj</option>
-                    </select>
-                </div>
-                <div class="form-group mt-2">
-                    <label class="d-block" for="tag">Tag</label>
-                    <select name="tag" class="p-2">
-                        <option value="bs">binary search</option>
-                        <option value="graph">graph</option>
-                    </select>
-                </div>
-                <div class="form-group mt-2">
-                    <label for="comment">Additional comment</label>
+                    <label for="tutorial">Add Tutorial</label>
                     <textarea type="text" class="form-control"
-                        id="comment" name="comment"
-                        aria-describedby="commentHelp"></textarea>
+                        id="tutorial" name="tutorial"
+                        aria-describedby="tutorialHelp"></textarea>
                 </div>
+                <div class="form-group mt-2">
+                    <label for="code">Add Code</label>
+                    <textarea type="text" class="form-control"
+                        id="code" name="code"
+                        aria-describedby="codeHelp"></textarea>
+                </div>
+
+                <div class="input_fields_wrap">
+                    <label for="code">Add Problem link based on this blog</label><br>
+                    <button class="add_field_button m-2">Add More Fields</button>
+                    <input type="text" class="form-control mb-3" name="mytext[]" placeholder="Enter Price">
+                </div>
+
+
                 <div class="text-center">
                     <button type="submit" class="btn btn-dark mt-3">Add</button>
                     <a type="button" class="btn btn-dark mt-3" href="/problems/">Cancel</a>
@@ -52,4 +52,38 @@
         </div>
     </div>
 </div>
+<script>
+  
+    {% comment %} expand tutorial & code area {% endcomment %}
+    function expandTextarea(id) {
+        document.getElementById(id).addEventListener('keyup', function() {
+            this.style.overflow = 'hidden';
+            this.style.height = 0;
+            this.style.height = this.scrollHeight + 'px';
+        }, false);
+    }
+    
+    expandTextarea('tutorial');
+    expandTextarea('code');
+  
+    {% comment %} problem link {% endcomment %}
+    $(document).ready(function() {
+        var max_fields      = 20; //maximum input boxes allowed
+        var wrapper   		= $(".input_fields_wrap"); //Fields wrapper
+        var add_button      = $(".add_field_button"); //Add button ID
+        
+        var x = 1; //initlal text box count
+        $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+            if(x < max_fields){ //max input box allowed
+                x++; //text box increment
+                $(wrapper).append('<div class="input-group mb-3"><input placeholder="Enter Price" type="text" name="mytext[]" class="form-control"><div class="input-group-append"><button class="btn btn-outline-danger remove_field" type="button">Remove</button></div></div>'); //add input box
+            }
+        });
+        
+        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+            e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
+            })
+        });
+</script>
 {% endblock %}

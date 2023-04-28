@@ -1,48 +1,68 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  <title>Add Problem</title>
+  <title>Add Editorial</title>
 {% endblock %}
 
 {% block content %}
 <div class="container mt-4" style="min-height: 100vh;">
-    <div class="card col-12 col-md-6 col-lg-4 m-auto">
-        <div class="card-header">Add new problem</div>
+    <div class="card col-12 col-md-6 col-lg-4 m-auto" style="width:90%;">
+        <div class="card-header">Add new Editorial</div>
         <div class="card-body">
-            <form action="{% url 'home' %}" method="POST">
+            <form action="{% url 'after_add_editorial' %}" method="POST">
                 {% csrf_token %}
                 <div class="form-group mt-2">
-                    <label for="problemName">Problem name</label>
+                    <label for="problemName">Problem name *</label>
                     <input type="text" class="form-control"
-                        id="problemName" name="problemName"
-                        placeholder="Enter problem name">
+                        id="problemName" name="problemName" 
+                        placeholder="Enter problem name" >
                 </div>
                 <div class="form-group mt-2">
-                    <label for="sourceLink">Problem source link</label>
-                    <input type="sourceLink" class="form-control"
-                        id="sourceLink" name="sourceLink"
-                        aria-describedby="sourceLinkHelp"
+                    <label for="problemLink">Problem source link *</label>
+                    <input type="problemLink" class="form-control"
+                    id="problemLink" name="problemLink"
+                        aria-describedby="problemLinkHelp" 
                         placeholder="Problem source link">
                 </div>
                 <div class="form-group mt-2">
-                    <label class="d-block" for="judgeName">Judge name</label>
-                    <select name="judgeName" class="p-2" id="judgeName">
-                        <option value="cf">codeforces</option>
-                        <option value="loj">lightoj</option>
+                    <label for="onlinejudge">Online Judge *</label>
+                    <select class="form-select" aria-label="Default select example" name="judge" id="judge">
+                        <option selected>Selcet Judge</option>
+                        <option value="Codeforces">Codeforces</option>
+                        <option value="Light OJ">Light OJ</option>
+                        <option value="Toph">Toph</option>
                     </select>
                 </div>
                 <div class="form-group mt-2">
-                    <label class="d-block" for="tag">Tag</label>
-                    <select name="tag" class="p-2">
-                        <option value="bs">binary search</option>
-                        <option value="graph">graph</option>
-                    </select>
+                    <div id="problemtags">
+                        <!-- <div class="search-box btn btn-light">
+                            <span class="search-text">Binary search</span>
+                            <i class="bi bi-x"></i>
+                        </div>                           -->
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" style="width: 100%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                          Problem tags
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"  style="width: 100%;">
+                            <li><input name="judgequery"  style="width: 100%;"/></li>
+                            <li><button class="tag btn btn-light" type="button"  style="width: 100%;" >Binary Search</a></li>
+                            <li><button class="tag btn btn-light" type="button"  style="width: 100%;" >Graph</a></li>
+                            <li><button class="tag btn btn-light" type="button"  style="width: 100%;" >Tree</a></li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="form-group mt-2">
-                    <label for="comment">Additional comment</label>
+                    <label for="tutorial">Add Tutorial</label>
                     <textarea type="text" class="form-control"
-                        id="comment" name="comment"
-                        aria-describedby="commentHelp"></textarea>
+                        id="tutorial" name="tutorial"
+                        aria-describedby="tutorialHelp"></textarea>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="code">Add Code</label>
+                    <textarea type="text" class="form-control"
+                        id="code" name="code"
+                        aria-describedby="codeHelp"></textarea>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-dark mt-3">Add</button>
@@ -52,4 +72,81 @@
         </div>
     </div>
 </div>
+<script>
+
+    {% comment %} expand tutorial & code area {% endcomment %}
+    function expandTextarea(id) {
+        document.getElementById(id).addEventListener('keyup', function() {
+            this.style.overflow = 'hidden';
+            this.style.height = 0;
+            this.style.height = this.scrollHeight + 'px';
+        }, false);
+    }
+    
+    expandTextarea('tutorial');
+    expandTextarea('code');
+
+
+
+   $(document).ready(function(){
+        $("form").submit(function(event){
+            event.preventDefault();
+            var searchTags = [];
+            $(".search-text").each(function() {
+                searchTags.push($(this).text());
+            });
+            $.ajax({
+                type: "POST",
+                url: "{% url 'after_add_editorial' %}",
+                data: {
+                    'problemName': $('#problemName').val(),
+                    'problemLink': $('#problemLink').val(),
+                    'judge': $('#judge').val(),
+                    'searchTags': JSON.stringify(searchTags),
+                    'tutorial': $('#tutorial').val(),
+                    'code': $('#code').val(),
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function(data) {
+                    // handle success
+                    window.location.href = "/profile/";
+                },
+                error: function(xhr, status, error) {
+                    // handle error
+                }
+            });
+        });
+
+        function createProblemTag(text){
+            const problemTag = document.createElement("div");
+            problemTag.classList.add("search-box", "btn", "btn-light", "m-1");
+
+            // create search text 
+            const tagText = document.createElement("span");
+            tagText.classList.add("search-text");
+            tagText.innerText = text;
+
+            // create the cross icon i element
+            const crossIcon = document.createElement("i");
+            crossIcon.classList.add("bi", "bi-x");
+            crossIcon.addEventListener("click", () => {
+                // remove the search box when cross icon is clicked
+                problemTag.remove();
+            });
+
+            problemTag.appendChild(tagText);
+            problemTag.appendChild(crossIcon);
+            return problemTag;
+        }
+
+        // select new tag
+        $(".tag").click(function(){
+            var buttonText = $(this).text();
+            var searchContainer = $("#problemtags")[0];
+                    
+            searchContainer.appendChild(createProblemTag(buttonText));
+        });
+    });
+
+</script>
 {% endblock %}
