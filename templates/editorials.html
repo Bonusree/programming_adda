@@ -7,7 +7,7 @@
 {% block content %}
 <div class="container-fluid" style="min-height: 100vh;">
   <div class="row m-2 text-end">
-    <form action=action="{% url 'filter_problem' %}" method="post">
+    <form action="{% url 'search_editorial' %}" method="POST">
         {% csrf_token %}
         {% comment %} <select name="searchOption" class="rounded d-block d-sm-inline
           text-center py-1 px-3" >

@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .models import add_editorials
 from .models import Tag
 import json
+from django.db.models import Q
 # @login_required
 def editorials(request):
     
@@ -21,7 +22,16 @@ def editorials(request):
 
 def search_editorial(request):
     if request.method=="POST":
-        se
+        searchText=request.POST.get('searchText')
+        data=add_editorials.objects.filter(Q(name=searchText) | Q(link=searchText))
+        problems=[]
+        for p in data:
+            problem = {'name': p.name, 'link': p.link, 'code': p.code, 'solution':p.tutorial,
+                        'oj': p.judge, 'contributor': p.user}
+                
+            problems.append(problem)
+        return render(request, "editorials.html", {"problems": problems})
+        
     else:
         return render(request, 'home.html')
 @login_required    
