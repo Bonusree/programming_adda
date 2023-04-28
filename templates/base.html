@@ -60,20 +60,41 @@
           </ul>
 
           <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="nav-item position-relative mx-3">
-              <i class="nav-link bi bi-bell" ></i>
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger my-2" id="notifications">9</span>
+            <li class="nav-item notification-icon">
+              <!-- <button class="btn btn-secondary dropdown-toggle" style="width: 100%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Problem tags
+              </button> -->
+              <div class="nav-link dropdown">
+                <i class="bi bi-bell" id="notifications" type="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                <span class="notification-count translate-middle badge rounded-pill bg-danger">0</span>
+                <ul class="dropdown-menu" aria-labelledby="notifications"  style="width: 100%;">
+                  <li><a href="#" class="btn" type="button"  style="width: 100%;" >Notication 1</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><button class="btn" type="button"  style="width: 100%;" >Notication 2</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><button class="btn" type="button"  style="width: 100%;" >Notication 3</a></li>
+                </ul>
+              </div>
             </li>
-            <li class="nav-item position-relative">
-              <i class="nav-link bi bi-envelope"></i> 
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger my-2" id="messages">4</span>
+            <li class="nav-item message-icon">
+              <div class="nav-link dropdown">
+                <i class="bi bi-envelope" id="messages" type="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                <span class="message-count translate-middle badge rounded-pill bg-danger">0</span>
+                <ul class="dropdown-menu" aria-labelledby="messages"  style="width: 100%;">
+                  <li><a href="#" class="btn" type="button"  style="width: 100%;" >Message 1</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><button class="btn" type="button"  style="width: 100%;" >Message 2</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><button class="btn" type="button"  style="width: 100%;" >Message 3</a></li>
+                </ul>
+              </div>
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link {% if request.path == '/profile/' %}active{% endif %}" href="/profile/">{{user.username}}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {% if request.path == '/logout/' %}active{% endif %}" href="/logout/">Logout</a>
+              <a class="nav-link text-danger {% if request.path == '/logout/' %}active{% endif %}" href="/logout/">Logout</a>
             </li>
             {% else %}
             <li class="nav-item">
