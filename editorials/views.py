@@ -14,9 +14,10 @@ def editorials(request):
     data= add_editorials.objects.all()
     problems=[]
     for p in data:
-        problem = {'name': p.name, 'link': p.link, 'code': p.code, 'solution':p.tutorial,
+        problem = {'name': p.name, 'link': p.link, 'tags':[],'code': p.code, 'solution':p.tutorial,
                        'oj': p.judge, 'contributor': p.user}
-            
+        for t in p.tags.all():
+            problem['tags'].append(t.name)
         problems.append(problem)
     return render(request, "editorials.html", {"problems": problems})
 
@@ -26,9 +27,10 @@ def search_editorial(request):
         data=add_editorials.objects.filter(Q(name=searchText) | Q(link=searchText))
         problems=[]
         for p in data:
-            problem = {'name': p.name, 'link': p.link, 'code': p.code, 'solution':p.tutorial,
+            problem = {'name': p.name, 'link': p.link, 'tags':[],'code': p.code, 'solution':p.tutorial,
                         'oj': p.judge, 'contributor': p.user}
-                
+            for t in p.tags.all():
+                problem['tags'].append(t.name)
             problems.append(problem)
         return render(request, "editorials.html", {"problems": problems})
         
