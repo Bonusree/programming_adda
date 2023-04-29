@@ -38,7 +38,7 @@ def addproblem(request):
         comment = request.POST.get('comment')
         user = request.user
         
-        judge,_ = Judge.objects.get_or_create(name=problem_judge)
+        judge,_ = Judge.objects.get_or_create(name=problem_judge,valid=1)
         # print("judge : --------------- ",judge)
         
         # Create a new problem object
@@ -55,7 +55,8 @@ def addproblem(request):
     # get request
     try:
         tags = Tag.objects.filter(valid=1)
-        context = {'tags':[tag.name for tag in tags]}
+        judges = Judge.objects.filter(valid=1)
+        context = {'tags':[tag.name for tag in tags],'judges':[judge.name for judge in judges]}
     except Exception as e:
         context = {'type':'error','message':f'error:{e}'}
     return render(request,'add_problems.html',context=context)

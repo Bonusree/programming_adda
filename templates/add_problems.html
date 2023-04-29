@@ -26,12 +26,20 @@
                 </div>
                 <div class="form-group mt-2">
                     <label for="onlinejudge">Online Judge *</label>
-                    <select class="form-select" aria-label="Default select example" name="judge" id="judge">
-                        <option selected>Selcet Judge</option>
-                        <option value="Codeforces">Codeforces</option>
-                        <option value="Light OJ">Light OJ</option>
-                        <option value="Toph">Toph</option>
-                    </select>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" style="width: 100%;" type="button" id="judgebutton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <input class="btn btn-secondary p-0"   type="button" name="judge" value="Select"/>
+                        </button>
+                        <ul class="dropdown-menu scrollable-menu" aria-labelledby="judgebutton"  style="width: 100%;">
+                            <!-- {% for tag in tags %}
+                            {% endfor %} -->
+                            {% for judge in judges %}
+                                <li><button class="judge-name btn btn-light" type="button"  style="width: 100%;" >{{judge}}</button></li>
+                            {% endfor %}
+                            <li><hr class="dropdown-divider"></li>
+                            <li><button class="btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#newjudgemodal"  style="width: 100%;" >New judge</a></li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="form-group mt-2">
                     <div id="problemtags">
@@ -79,7 +87,7 @@
                     <form action="{% url 'newtagsuggestion' %}" method="POST">
                         {% csrf_token %}
                         <div class="form-group">
-                            <label for="newtag">Problem name *</label>
+                            <label for="newtag">New tag *</label>
                             <input type="text" class="form-control"
                                 id="newtag" name="newtag" 
                                 placeholder="Enter new tag"/>
@@ -111,7 +119,7 @@
                 data: {
                     'problemName': $('#problemName').val(),
                     'problemLink': $('#problemLink').val(),
-                    'judge': $('#judge').val(),
+                    'judge': $('input[name="judge"]').val(),
                     'searchTags': JSON.stringify(searchTags),
                     'comment': $('#comment').val(),
                     'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
@@ -154,6 +162,12 @@
             var searchContainer = $("#problemtags")[0];
                     
             searchContainer.appendChild(createProblemTag(buttonText));
+        });
+
+        $(".judge-name").click(function(){
+            var buttonText = $(this).text();
+            console.log(buttonText);
+            $('input[name="judge"]').val(buttonText);
         });
     });
 
