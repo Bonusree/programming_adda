@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from .models import add_editorials
-from .models import Tag
+from problems.models import Tag,Judge
 import json
 from django.db.models import Q
 # @login_required
@@ -50,8 +50,9 @@ def after_add_editorial(request):
         code = request.POST.get('code')
         user = request.user
         
+        judge,_ = Judge.objects.get_or_create(name=problem_judge)
         editorial=add_editorials(name=problem_name, link=problem_link,
-                                 judge=problem_judge, tutorial=tutorial, code=code, user=user)
+                                 judge=judge, tutorial=tutorial, code=code, user=user)
         editorial.save()
         for tag_name in problem_tags:
             # print("tag_name",tag_name)
