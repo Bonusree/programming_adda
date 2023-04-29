@@ -64,6 +64,20 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 # @login_required(login_url='login')
 def loginPage(request):
+    if request.method=='POST':
+        username=request.POST.get('username')
+        pass1=request.POST.get('password')
+        user=authenticate(request,username=username,password=pass1)
+        print(user)
+        if user is not None:
+            login(request,user)
+            context = {'type':'success','message':'Successfully you are logged in.'}
+            request.session['context'] = context
+            return redirect('home')
+        else:
+            context = {'type':'error','message':'Username or Password is incorrect!'}
+            return render (request,'login.html', context=context)
+        
     return render (request,'login.html')
 
 def SignupPage(request):
@@ -78,27 +92,13 @@ def SignupPage(request):
         my_user=User.objects.create_user(email, email,pass1)
         my_user.save()
         return redirect('login')
-        
-
-
-
     return render (request,'register.html')
 
 def homePage(request):
-    if request.method=='POST':
-        username=request.POST.get('username')
-        pass1=request.POST.get('password')
-        user=authenticate(request,username=username,password=pass1)
-        print(user)
-        if user is not None:
-            login(request,user)
-            context = {'type':'success','message':'Successfully you are logged in.'}
-            return render (request,'home.html', context=context)
-        else:
-            context = {'type':'error','message':'Username or Password is incorrect!'}
-            return render (request,'login.html', context=context)
-
-    return render (request,'home.html')
+    context = request.session.get('context', None)
+    if context!=None:
+        del request.session['context']
+    return render (request,'home.html',context=context)
 
 def LogoutPage(request):
     logout(request)
