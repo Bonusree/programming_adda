@@ -61,9 +61,14 @@ from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_protect
 # Create your views here.
-# @login_required(login_url='login')
+
+@csrf_protect
 def loginPage(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    
     if request.method=='POST':
         username=request.POST.get('username')
         pass1=request.POST.get('password')
