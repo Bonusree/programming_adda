@@ -1,71 +1,19 @@
- # from django.shortcuts import render
-# from django.shortcuts import render,HttpResponse,redirect
-# from django.contrib.auth.models import User
-# from .models import Account
-# from django.contrib.auth import authenticate,login,logout
-# from django.contrib.auth.decorators import login_required
-# from django.utils import timezone
-# from django.core.exceptions import ValidationError
-
-# # @login_required
-# def register(request):
-#     if request.method=="POST":
-#         # if registered successfully render to home
-#         # else show error message and render to register
-#         try:
-#             name=request.POST.get("name")
-#             email=request.POST.get("email")
-#             password=request.POST.get("password")
-#             cpassword=request.POST.get("cpassword")
-#             if password!=cpassword:
-#                 context = {'type':'error','message':'missmatch password!'}
-#                 return render(request, 'register.html', context=context)
-#             my_user=Account.objects.create_user(name=name, email=email, password=password,role='contestant',joinedDate=timezone.now())
-#             my_user.save()
-#             context = {'type':'success','message':'You registered successfully. Now login here.'}
-#             return render(request, 'login.html', context=context)
-#         except ValidationError as e:
-#             print('validation error',e.message)
-#             context={'type':'error','message':e.message}
-#             return render(request, 'register.html',context=context)
-#         except ValueError as e:
-#             print('value error',e.message)
-#             context={'type':'error','message':e.message}
-#             return render(request, 'register.html',context=context)
-#     else:
-#         return render(request, 'register.html')
-# from django.shortcuts import render
-# from django.contrib.auth import authenticate,login,logout
-# from django.contrib.auth.decorators import login_required
-# from django.shortcuts import render,HttpResponse,redirect
-# from account.models import Account
-# def login(request):
-#     return render(request,'login.html')
-
-# def home(request):
-#     if request.method=="POST":
-#         email=request.POST.get("email")
-#         password=request.POST.get("password")
-#         ex=Account.objects.filter(email=email, password=password).exists()
-#         print(ex)
-#         user=authenticate(request,email=email,password=password)
-#         print(user)
-#         if user is not None:
-#             return render(request, 'home.html')
-            
-#         else:
-#             return HttpResponse("you are not registered")
-#     else:
-#         return render(request, 'home.html')
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
+from django.db.utils import DatabaseError
 # Create your views here.
 
 @csrf_protect
 def loginPage(request):
+    
+    # check session context 
+    context = request.session.get('context', None)
+    if context!=None:
+        del request.session['context']
+        
     if request.user.is_authenticated:
         return redirect('home')
     
@@ -83,7 +31,7 @@ def loginPage(request):
             context = {'type':'error','message':'Username or Password is incorrect!'}
             return render (request,'login.html', context=context)
         
-    return render (request,'login.html')
+    return render (request,'login.html',context=context)
 
 def SignupPage(request):
     if request.method=='POST':
@@ -91,11 +39,36 @@ def SignupPage(request):
         email=request.POST.get('email')
         pass1=request.POST.get('password')
         pass2=request.POST.get('cpassword')
-        print(pass1 ,pass2)
+        context={'type':'error','message':''}
         
+        # check password and confirm password
+        if pass1!=pass2:
+            context['message']='Password does not match'
+            return render(request,'register.html',context=context)
+        
+        # check duplicate username
+        if User.objects.filter(username=name).exists():
+            context['message']='Duplicate username'
+            return render(request,'register.html',context=context)
+        
+        # check duplicate email address 
+        if User.objects.filter(email=email).exists():
+            context['message']='Duplicate email address'
+            return render(request,'register.html',context=context)
 
-        my_user=User.objects.create_user(email, email,pass1)
-        my_user.save()
+        try:
+            my_user=User.objects.create_user(email, email,pass1)
+            my_user.save()
+        except DatabaseError as e:
+            context['message']=f'Sorry something error with database. Error: {e}'
+            return render(request,'register.html',context=context)
+        except Exception as e:
+            context['message']=f'Sorry something error. Error: {e}'
+            return render(request,'register.html',context=context)
+        
+        context['type']='success'
+        context['message']='Your registration successfully completed.'
+        request.session['context']=context
         return redirect('login')
     return render (request,'register.html')
 
@@ -107,6 +80,7 @@ def homePage(request):
 
 def LogoutPage(request):
     logout(request)
+    context = {'type':'success','message':'You are logout'}
     return redirect('login')
 
 
