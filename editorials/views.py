@@ -56,7 +56,7 @@ def after_add_editorial(request):
         editorial.save()
         for tag_name in problem_tags:
             # print("tag_name",tag_name)
-            tag, _ = Tag.objects.get_or_create(name=tag_name)
+            tag, _ = Tag.objects.get_or_create(name=tag_name,valid=1)
             editorial.tags.add(tag)
         
         return render(request, 'profile.html')

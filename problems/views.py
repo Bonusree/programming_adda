@@ -38,13 +38,6 @@ def addproblem(request):
         comment = request.POST.get('comment')
         user = request.user
         
-        # print(problem_name)
-        # print(problem_link)
-        # print(problem_judge)
-        # print(problem_tags)
-        # print(comment)
-        # print("user :",user)
-        
         judge,_ = Judge.objects.get_or_create(name=problem_judge)
         # print("judge : --------------- ",judge)
         
@@ -55,7 +48,7 @@ def addproblem(request):
         # Add tags to the problem object
         for tag_name in problem_tags:
             # print("tag_name",tag_name)
-            tag, _ = Tag.objects.get_or_create(name=tag_name)
+            tag, _ = Tag.objects.get_or_create(name=tag_name,valid=1)
             problem.tags.add(tag)
         return redirect('problems')
     
