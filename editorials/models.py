@@ -3,18 +3,13 @@ from django.db import models
 # Create your models here.
 
 from django.contrib.auth.models import User
+from problems.models import Tag, Judge
 
 
-class Tag(models.Model):
-    name = models.CharField(max_length=255)
-    
-    def __str__(self):
-        return self.name
-    
 class add_editorials(models.Model):
     name = models.CharField(max_length=255)
     link = models.URLField()
-    judge = models.CharField(max_length=255)
+    judge = models.ForeignKey(Judge, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag)
     tutorial = models.TextField()
     code = models.TextField()
