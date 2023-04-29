@@ -62,3 +62,10 @@ input[type="color"]:focus,
   border: 1px solid #b4b4b4;
   box-shadow: none;
 }
+
+/* dropdown scrolling */
+.dropdown-menu.show.scrollable-menu {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+}

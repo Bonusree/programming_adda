@@ -12,4 +12,12 @@ $(document).ready(function() {
         cpassword.attr("type", type);
         this.classList.toggle("bi-eye");
     });
+
+    $("#notifications").on('click',function(){
+        console.log("clicked on notification-icon");
+    });
+    
+    $("#messages").on('click',function(){
+        console.log("clicked on message-icon");
+    });
 });

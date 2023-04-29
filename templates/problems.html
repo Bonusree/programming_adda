@@ -105,13 +105,14 @@ $(document).ready(function() {
                     for (var i = 0; i < results.length; i++) {
                         var suggestionTag = document.createElement("li");
                         suggestionTag.type="button";
+                        suggestionTag.id="tag"+i;
                         suggestionTag.classList.add("px-1");
                         suggestionTag.style.width="100%";
                         suggestionTag.innerText = results[i];
                         console.log("curr",results[i]);
-                        suggestionTag.addEventListener("click", () => {
-                            console.log("clicked and value",suggestionTag.innerText);
-                            $("#searchText").val(suggestionTag.innerText);
+                        suggestionTag.addEventListener("click", function(e) {
+                            // console.log("clicked and value",e.target.id,this.innerText);
+                            $("#searchText").val(this.innerText);
                         });
                         $('#searchSuggestions')[0].appendChild(suggestionTag);
                     }
