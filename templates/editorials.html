@@ -24,20 +24,23 @@
       </form>
   </div>
   <table class="table table-striped table-hover table-bordered"
-    style="min-width: 700px;">
-    <thead>
-      <tr>
-        <th class="text-center">Problem</th>
-        <th class="text-center">OJ name</th>
-        <th class="text-center">Contributer</th>
-        <th class="text-center">Code & solution</th>
-      </tr>
-    </thead>
-    <tbody>
+  style="min-width: 700px;">
+  <thead>
+    <tr>
+      <th class="text-center">Problem</th>
+      <th class="text-center">Tag</th>
+      <th class="text-center">OJ name</th>
+      <th class="text-center">Contributer</th>
+      <th class="text-center">code and solution</th>
+    </tr>
+  </thead>
+  <tbody>
     
       {% for problem in problems %}
      <tr>
       <td><a href="{{ problem.link }}"> {{ problem.name }} </a></td>
+      <td>{{problem.tags.0}}{% for tag in problem.tags %}
+        {% if not forloop.first %} ,{{ tag }} {% endif %} {% endfor %}</td>
       <td>{{ problem.oj }}</td>
       <td>{{ problem.contributor }}</td>
       <td>
@@ -99,7 +102,7 @@
   </div>
 </div>
       </td>
-      
+     
     </tr>
     {% endfor %}
   </tbody>
