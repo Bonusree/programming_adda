@@ -28,9 +28,13 @@
                     <label for="onlinejudge">Online Judge *</label>
                     <select class="form-select" aria-label="Default select example" name="judge" id="judge">
                         <option selected>Selcet Judge</option>
-                        <option value="Codeforces">Codeforces</option>
-                        <option value="Light OJ">Light OJ</option>
-                        <option value="Toph">Toph</option>
+                        <option value="Codeforces">codeforces</option>
+                        {% comment %} {% for p in context.judge %}
+                        <option value="{{p}}">{{p}}</option>
+                        {% endfor %}
+                        <button type="button" class="btn btn-outline-dark " data-bs-toggle="modal" data-bs-target="#code">
+                            New Judge add
+                          </button> {% endcomment %}
                     </select>
                 </div>
                 <div class="form-group mt-2">
@@ -146,7 +150,7 @@
                     
             searchContainer.appendChild(createProblemTag(buttonText));
         });
-    });
+    }); 
 
 </script>
 {% endblock %}

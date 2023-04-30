@@ -8,4 +8,5 @@ urlpatterns = [
     path('problems/filter-problem/', views.filterProblem, name='filter_problem'),
     path('search-suggestion/',views.searchSuggestion,name='searchSuggestion'),
     path('new-tag-suggestion/',views.newTagSuggestion,name='newtagsuggestion'),
+    path('new-judge-suggestion/',views.newJudgeSuggestion,name='newjudgesuggestion'),
 ]
