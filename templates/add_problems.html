@@ -104,6 +104,35 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="newjudgemodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newjudgemodalLabel">Suggest new  judge</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'newjudgesuggestion' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="newjudge">New judge *</label>
+                            <input type="text" class="form-control"
+                                id="newjudge" name="newjudge" 
+                                placeholder="Enter new judge"/>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-dark mt-3">Request</button>
+                                <a type="button" class="btn btn-dark mt-3" data-bs-dismiss="modal">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancel</button>
+                    </div> -->
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
    $(document).ready(function(){

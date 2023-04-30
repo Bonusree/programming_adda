@@ -138,3 +138,27 @@ def newTagSuggestion(request):
         return render(request,'add_problems.html',context=context)
     else:
         print("newtag get request---------------")
+
+def newJudgeSuggestion(request):
+    if request.method=="POST":
+        newtag = request.POST.get('newjudge')
+        if not newtag:
+            context={'type':'error','message':'Tag is empty'}
+            return render(request,'add_problems.html',context=context)
+            
+        context={'type':'success','message':'Your request is pending. Please wait for approval.'}
+        try:
+            judge = Judge(name=newtag,valid=1)
+            judge.save()
+            try:
+                tags = Judge.objects.filter(valid=1)
+                context = {'type':'success','message':'Thanks for your contribution','judges':[tag.name for tag in tags]}
+            except Exception as e:
+                context = {'type':'error','message':f'error:{e}'}
+            return render(request,'add_problems.html',context=context)
+        except Exception as e:
+            context['type']='error'
+            context['message']=e
+        return render(request,'add_problems.html',context=context)
+    else:
+        print("newtag get request---------------")
