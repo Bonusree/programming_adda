@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from problems.models import Tag, Judge
 
 
-class add_editorials(models.Model):
+class Editorials(models.Model):
     name = models.CharField(max_length=255)
     link = models.URLField()
     judge = models.ForeignKey(Judge, on_delete=models.CASCADE)
