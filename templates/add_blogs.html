@@ -15,32 +15,49 @@
                     <label for="blogName">blog name *</label>
                     <input type="text" class="form-control"
                         id="blogName" name="blogName" 
-                        placeholder="Enter blog name" >
+                        placeholder="Blog name" >
                 </div>
                 <div class="form-group mt-2">
-                    <label for="blogLink">blog source link *</label>
-                    <input type="blogLink" class="form-control"
+                    <label for="blogLink">Blog source link *</label>
+                    <input type="url" class="form-control"
                     id="blogLink" name="blogLink"
                         aria-describedby="blogLinkHelp" 
-                        placeholder="blog source link">
+                        placeholder="Blog source link">
                 </div>
                 <div class="form-group mt-2">
-                    <label for="tutorial">Add Tutorial</label>
+                    <label for="description">Brief description *</label>
                     <textarea type="text" class="form-control"
-                        id="tutorial" name="tutorial"
-                        aria-describedby="tutorialHelp"></textarea>
+                        id="description" name="description"
+                        aria-describedby="descriptionHelp"></textarea>
                 </div>
                 <div class="form-group mt-2">
-                    <label for="code">Add Code</label>
+                    <label for="comment">Additional comment</label>
                     <textarea type="text" class="form-control"
-                        id="code" name="code"
-                        aria-describedby="codeHelp"></textarea>
+                        id="comment" name="comment"
+                        aria-describedby="commentHelp"></textarea>
                 </div>
 
-                <div class="input_fields_wrap">
-                    <label for="code">Add Problem link based on this blog</label><br>
-                    <button class="add_field_button m-2">Add More Fields</button>
-                    <input type="text" class="form-control mb-3" name="mytext[]" placeholder="Enter Price">
+                <div class="form-group input_fields_wrap" id="related_problems">
+                    <label for="code" class="mt-2">Add this blog related problem. If you don't find problem skip it. After add problem you will find and also can add it in future.</label><br>
+                    <button class="btn btn-dark m-2" id="add_more_problem" type="button">Add more problem</button>
+                    <div class="row my-2">
+                        <div class="dropdown col-4">
+                            <button class="btn btn-secondary dropdown-toggle" style="width: 100%;" type="button" id="judgebutton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <input class="btn btn-secondary p-0"   type="button" name="judge" value="Select judge"/>
+                            </button>
+                            <ul class="dropdown-menu scrollable-menu" aria-labelledby="judgebutton"  style="width: 100%;">
+                                <!-- {% for tag in tags %}
+                                {% endfor %} -->
+                                {% for judge in judges %}
+                                    <li><button class="judge-name btn btn-light" type="button"  style="width: 100%;" >{{judge}}</button></li>
+                                {% endfor %}
+                                <li><hr class="dropdown-divider"></li>
+                                <li><button class="btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#newjudgemodal"  style="width: 100%;" >New judge</a></li>
+                            </ul>
+                        </div>
+                        <input type="text" class="col-4" name="mytext0" placeholder="Enter Problem name">
+                        <button type="button" class="mx-2 col-2 btn btn-dark">Remove</button>
+                    </div>
                 </div>
 
 
@@ -54,7 +71,7 @@
 </div>
 <script>
   
-    {% comment %} expand tutorial & code area {% endcomment %}
+    // {% comment %} expand tutorial & code area {% endcomment %}
     function expandTextarea(id) {
         document.getElementById(id).addEventListener('keyup', function() {
             this.style.overflow = 'hidden';
@@ -66,24 +83,37 @@
     expandTextarea('tutorial');
     expandTextarea('code');
   
-    {% comment %} problem link {% endcomment %}
+    // {% comment %} problem link {% endcomment %}
     $(document).ready(function() {
         var max_fields      = 20; //maximum input boxes allowed
-        var wrapper   		= $(".input_fields_wrap"); //Fields wrapper
-        var add_button      = $(".add_field_button"); //Add button ID
-        
-        var x = 1; //initlal text box count
-        $(add_button).click(function(e){ //on add input button click
-        e.preventDefault();
-            if(x < max_fields){ //max input box allowed
-                x++; //text box increment
-                $(wrapper).append('<div class="input-group mb-3"><input placeholder="Enter Price" type="text" name="mytext[]" class="form-control"><div class="input-group-append"><button class="btn btn-outline-danger remove_field" type="button">Remove</button></div></div>'); //add input box
+        var add_button      = $("#add_more_problem"); //Add button ID
+        var index=0;
+        $(add_button).click(function(e){  
+            index++;  // Increment the index variable
+            console.log("index"+index);
+            if(index>=max_fields){
+                alert("You can not add more!");
+                return;
             }
+            var inputHtml = '<input type="text" class="col-4" name="mytext' + index + '" placeholder="Enter Problem name">';
+            var divHtml = '<div class="row my-2">' +
+            '<div class="dropdown col-4">' +
+            '<button class="btn btn-secondary dropdown-toggle" style="width: 100%;" type="button" id="judgebutton" data-bs-toggle="dropdown" aria-expanded="false">' +
+            '<input class="btn btn-secondary p-0" type="button" name="judge" value="Select judge"/>' +
+            '</button>' +
+            '<ul class="dropdown-menu scrollable-menu" aria-labelledby="judgebutton" style="width: 100%;">' +
+            '{% for judge in judges %}' +
+            '<li><button class="judge-name btn btn-light" type="button" style="width: 100%;">{{judge}}</button></li>' +
+            '{% endfor %}' +
+            '<li><hr class="dropdown-divider"></li>' +
+            '<li><button class="btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#newjudgemodal" style="width: 100%;">New judge</a></li>' +
+            '</ul>' +
+            '</div>' +
+            inputHtml +
+            '<button type="button" class="mx-2 col-2 btn btn-dark">Remove</button>' +
+            '</div>';
+            $("#related_problems").append(divHtml);
         });
-        
-        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-            e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
-            })
-        });
+    });
 </script>
 {% endblock %}
