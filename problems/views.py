@@ -126,16 +126,11 @@ def newTagSuggestion(request):
         try:
             tag = Tag(name=newtag,valid=1)
             tag.save()
-            try:
-                tags = Tag.objects.filter(valid=1)
-                context = {'type':'success','message':'Thanks for your contribution','tags':[tag.name for tag in tags]}
-            except Exception as e:
-                context = {'type':'error','message':f'error:{e}'}
-            return render(request,'add_problems.html',context=context)
+            return render(request,'profile.html',context=context)
         except Exception as e:
             context['type']='error'
             context['message']=e
-        return render(request,'add_problems.html',context=context)
+        return render(request,'profile.html',context=context)
     else:
         print("newtag get request---------------")
 
@@ -149,19 +144,11 @@ def newJudgeSuggestion(request):
             
         context={'type':'success','message':'Thanks for your suggestion.'}
         try:
-            judge = Judge(name=newjudge,valid=1)
-            judge.save()
-            try:
-                judges = Judge.objects.filter(valid=1)
-                context = {'type':'success','message':'Thanks for your contribution','judges':[judge.name for judge in judges]}
-                print("---------------------------")
-                print(context)
-            except Exception as e:
-                context = {'type':'error','message':f'error:{e}'}
-            return render(request,'add_problems.html',context=context)
+            Judge.objects.get_or_create(name=newjudge,valid=1)
+            return render(request,'profile.html',context=context)
         except Exception as e:
             context['type']='error'
             context['message']=f'error: {e}'
-        return render(request,'add_problems.html',context=context)
+        return render(request,'profile.html',context=context)
     else:
         print("newtag get request---------------")

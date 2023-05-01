@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 class Tag(models.Model):
     name = models.CharField(max_length=255)
@@ -19,6 +20,8 @@ class Judge(models.Model):
 class Problem(models.Model):
     name = models.CharField(max_length=255)
     link = models.URLField()
+    editorial_link = models.URLField(null=True)
+    editorial = models.ForeignKey(Judge, on_delete=models.CASCADE, null=True,related_name="editorials")
     judge = models.ForeignKey(Judge, on_delete=models.CASCADE, null=True)
     tags = models.ManyToManyField(Tag)
     comment = models.TextField()
