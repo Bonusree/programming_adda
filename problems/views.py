@@ -37,9 +37,9 @@ def addproblem(request):
         problem_tags = json.loads(request.POST.get('searchTags'))
         comment = request.POST.get('comment')
         user = request.user
-        
+        print(problem_judge)
         judge,_ = Judge.objects.get_or_create(name=problem_judge,valid=1)
-        # print("judge : --------------- ",judge)
+        print("judge : --------------- ",judge)
         
         # Create a new problem object
         problem = Problem(name=problem_name, link=problem_link,judge=judge, comment=comment, user=user)
