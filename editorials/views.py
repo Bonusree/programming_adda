@@ -55,23 +55,30 @@ def after_add_editorial(request):
         tutorial = request.POST.get('tutorial')
         code = request.POST.get('code')
         user = request.user
-        judge,_ = Judge.objects.get_or_create(name=problem_judge,valid=1)
-        try:
+        print(" >> ",problem_name)
+        print(" >> ",problem_link)
+        print(" >> ",problem_judge)
+        print(" >> ",problem_tags)
+        print(" >> ",tutorial)
+        print(" >> ",code)
+        print(" >> ",user)
+        # judge,_ = Judge.objects.get_or_create(name=problem_judge,valid=1)
+        # try:
            
-            try:
-                editorial=Editorials(name=problem_name, link=problem_link,
-                                    judge=judge, tutorial=tutorial, code=code, user=user)
-                editorial.save()
-                for tag_name in problem_tags:
-            # print("tag_name",tag_name)
-                    tag, _ = Tag.objects.get_or_create(name=tag_name,valid=1)
-                    editorial.tags.add(tag)
-            except Exception as e:
-                print(e)       
+        #     try:
+        #         editorial=Editorials(name=problem_name, link=problem_link,
+        #                             judge=judge, tutorial=tutorial, code=code, user=user)
+        #         editorial.save()
+        #         for tag_name in problem_tags:
+        #     # print("tag_name",tag_name)
+        #             tag, _ = Tag.objects.get_or_create(name=tag_name,valid=1)
+        #             editorial.tags.add(tag)
+        #     except Exception as e:
+        #         print(e)       
             
-            return render(request, 'profile.html')
-        except Exception as e:
-            print(e)
+        #     return render(request, 'profile.html')
+        # except Exception as e:
+        #     print(e)
             
         
         
