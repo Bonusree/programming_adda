@@ -39,6 +39,7 @@
         <th class="text-center">Tag</th>
         <th class="text-center">OJ name</th>
         <th class="text-center">Contributer</th>
+        <th class="text-center">Resource</th>
         <th class="text-center">Additional Comment</th>
       </tr>
     </thead>
@@ -50,6 +51,13 @@
         <td>{% for tag in problem.tags %} {{ tag }} | {% endfor %}</td>
         <td>{{ problem.oj }}</td>
         <td>{{ problem.contributor }}</td>
+        <td>
+          <div class="row m-1 text-center">
+            <button class="btn btn-primary col-6 my-1" type="button">Editorial</button>
+            <div class="col-1 my-1"></div>
+            <button class="btn btn-primary col-5" type="button">Blog</button>
+          </div>
+        </td>
         <td>{{ problem.comment }}</td>
       </tr>
       {% endfor %}
