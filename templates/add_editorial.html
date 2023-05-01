@@ -26,16 +26,20 @@
                 </div>
                 <div class="form-group mt-2">
                     <label for="onlinejudge">Online Judge *</label>
-                    <select class="form-select" aria-label="Default select example" name="judge" id="judge">
-                        <option selected>Selcet Judge</option>
-                        <option value="Codeforces">codeforces</option>
-                        {% comment %} {% for p in context.judge %}
-                        <option value="{{p}}">{{p}}</option>
-                        {% endfor %}
-                        <button type="button" class="btn btn-outline-dark " data-bs-toggle="modal" data-bs-target="#code">
-                            New Judge add
-                          </button> {% endcomment %}
-                    </select>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" style="width: 100%;" type="button" id="judgebutton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <input class="btn btn-secondary p-0"   type="button" name="judge" value="Select"/>
+                        </button>
+                        <ul class="dropdown-menu scrollable-menu" aria-labelledby="judgebutton"  style="width: 100%;">
+                            <!-- {% for tag in tags %}
+                            {% endfor %} -->
+                            {% for judge in judges %}
+                                <li><button class="judge-name btn btn-light" type="button"  style="width: 100%;" >{{judge}}</button></li>
+                            {% endfor %}
+                            <li><hr class="dropdown-divider"></li>
+                            <li><button class="btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#newjudgemodal"  style="width: 100%;" >New judge</a></li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="form-group mt-2">
                     <div id="problemtags">
@@ -48,11 +52,13 @@
                         <button class="btn btn-secondary dropdown-toggle" style="width: 100%;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                           Problem tags
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"  style="width: 100%;">
+                        <ul class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton1"  style="width: 100%;">
                             <li><input name="judgequery"  style="width: 100%;"/></li>
-                            <li><button class="tag btn btn-light" type="button"  style="width: 100%;" >Binary Search</a></li>
-                            <li><button class="tag btn btn-light" type="button"  style="width: 100%;" >Graph</a></li>
-                            <li><button class="tag btn btn-light" type="button"  style="width: 100%;" >Tree</a></li>
+                            {% for tag in tags %}
+                                <li><button class="tag btn btn-light" type="button"  style="width: 100%;" >{{tag}}</a></li>
+                            {% endfor %}
+                            <li><hr class="dropdown-divider"></li>
+                            <li><button class="btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  style="width: 100%;" >New tag</a></li>
                         </ul>
                     </div>
                 </div>
@@ -73,6 +79,63 @@
                     <a type="button" class="btn btn-dark mt-3" href="/problems/">Cancel</a>
                 </div>
             </form>
+        </div>
+    </div>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Suggest new problem tag</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'newtagsuggestion' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="newtag">New tag *</label>
+                            <input type="text" class="form-control"
+                                id="newtag" name="newtag" 
+                                placeholder="Enter new tag"/>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-dark mt-3">Request</button>
+                                <a type="button" class="btn btn-dark mt-3" data-bs-dismiss="modal">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancel</button>
+                    </div> -->
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="newjudgemodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newjudgemodalLabel">Suggest new  judge</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'newjudgesuggestion' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="newjudge">New judge *</label>
+                            <input type="text" class="form-control"
+                                id="newjudge" name="newjudge" 
+                                placeholder="Enter new judge"/>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-dark mt-3">Request</button>
+                                <a type="button" class="btn btn-dark mt-3" data-bs-dismiss="modal">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancel</button>
+                    </div> -->
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -149,6 +212,11 @@
             var searchContainer = $("#problemtags")[0];
                     
             searchContainer.appendChild(createProblemTag(buttonText));
+        });
+        $(".judge-name").click(function(){
+            var buttonText = $(this).text();
+            console.log(buttonText);
+            $('input[name="judge"]').val(buttonText);
         });
     }); 
 
