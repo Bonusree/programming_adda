@@ -9,19 +9,19 @@
     <div class="card col-12 col-md-6 col-lg-4 m-auto" style="width:90%;">
         <div class="card-header">Add new blog</div>
         <div class="card-body">
-            <form action="{% url 'addproblem' %}" method="POST">
+            <form action="{% url 'add_blogs' %}" method="POST">
                 {% csrf_token %}
                 <div class="form-group mt-2">
-                    <label for="blogName">blog name *</label>
+                    <label for="blog_name">blog name *</label>
                     <input type="text" class="form-control"
-                        id="blogName" name="blogName" 
+                        id="blog_name" name="blog_name" 
                         placeholder="Blog name" >
                 </div>
                 <div class="form-group mt-2">
-                    <label for="blogLink">Blog source link *</label>
+                    <label for="blog_link">Blog source link *</label>
                     <input type="url" class="form-control"
-                    id="blogLink" name="blogLink"
-                        aria-describedby="blogLinkHelp" 
+                    id="blog_link" name="blog_link"
+                        aria-describedby="blog_link_help" 
                         placeholder="Blog source link">
                 </div>
                 <div class="form-group mt-2">

@@ -28,6 +28,17 @@
       <th class="text-center">Related Problem</th>
       <th class="text-center">Additional Comment</th>
     </tr>
+    {% for blog in blogs%}
+      <tr>
+        <td class="text-center"><a href="{{ blog.link }}"> {{ blog.name }} </a></td>
+        <td class="text-center">{{blog.description}}</td>
+        <td class="text-center">{{blog.contributor}}</td>
+        <td class="text-center"><button class="btn btn-dark py-0 add-more"
+            data-bs-target="#add_more_problem" data-bs-toggle="modal"
+            value="{{blog.blog_id}}">Add more</button></td>
+        <td class="text-center">{{blog.comment}}</td>
+      </tr>
+    {% endfor %}
     <tr>
       <td class="text-center">Mestu Paul</td>
       <td class="text-center"></td>
