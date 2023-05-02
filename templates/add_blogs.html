@@ -37,28 +37,7 @@
                         aria-describedby="commentHelp"></textarea>
                 </div>
 
-                <div class="form-group input_fields_wrap" id="related_problems">
-                    <label for="code" class="mt-2">Add this blog related problem. If you don't find problem skip it. After add problem you will find and also can add it in future.</label><br>
-                    <button class="btn btn-dark m-2" id="add_more_problem" type="button">Add more problem</button>
-                    <div class="row my-2">
-                        <div class="dropdown col-4">
-                            <button class="btn btn-secondary dropdown-toggle" style="width: 100%;" type="button" id="judgebutton" data-bs-toggle="dropdown" aria-expanded="false">
-                                <input class="btn btn-secondary p-0"   type="button" name="judge" value="Select judge"/>
-                            </button>
-                            <ul class="dropdown-menu scrollable-menu" aria-labelledby="judgebutton"  style="width: 100%;">
-                                <!-- {% for tag in tags %}
-                                {% endfor %} -->
-                                {% for judge in judges %}
-                                    <li><button class="judge-name btn btn-light" type="button"  style="width: 100%;" >{{judge}}</button></li>
-                                {% endfor %}
-                                <li><hr class="dropdown-divider"></li>
-                                <li><button class="btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#newjudgemodal"  style="width: 100%;" >New judge</a></li>
-                            </ul>
-                        </div>
-                        <input type="text" class="col-4" name="mytext0" placeholder="Enter Problem name">
-                        <button type="button" class="mx-2 col-2 btn btn-dark">Remove</button>
-                    </div>
-                </div>
+
 
 
                 <div class="text-center">
@@ -83,37 +62,5 @@
     expandTextarea('tutorial');
     expandTextarea('code');
   
-    // {% comment %} problem link {% endcomment %}
-    $(document).ready(function() {
-        var max_fields      = 20; //maximum input boxes allowed
-        var add_button      = $("#add_more_problem"); //Add button ID
-        var index=0;
-        $(add_button).click(function(e){  
-            index++;  // Increment the index variable
-            console.log("index"+index);
-            if(index>=max_fields){
-                alert("You can not add more!");
-                return;
-            }
-            var inputHtml = '<input type="text" class="col-4" name="mytext' + index + '" placeholder="Enter Problem name">';
-            var divHtml = '<div class="row my-2">' +
-            '<div class="dropdown col-4">' +
-            '<button class="btn btn-secondary dropdown-toggle" style="width: 100%;" type="button" id="judgebutton" data-bs-toggle="dropdown" aria-expanded="false">' +
-            '<input class="btn btn-secondary p-0" type="button" name="judge" value="Select judge"/>' +
-            '</button>' +
-            '<ul class="dropdown-menu scrollable-menu" aria-labelledby="judgebutton" style="width: 100%;">' +
-            '{% for judge in judges %}' +
-            '<li><button class="judge-name btn btn-light" type="button" style="width: 100%;">{{judge}}</button></li>' +
-            '{% endfor %}' +
-            '<li><hr class="dropdown-divider"></li>' +
-            '<li><button class="btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#newjudgemodal" style="width: 100%;">New judge</a></li>' +
-            '</ul>' +
-            '</div>' +
-            inputHtml +
-            '<button type="button" class="mx-2 col-2 btn btn-dark">Remove</button>' +
-            '</div>';
-            $("#related_problems").append(divHtml);
-        });
-    });
 </script>
 {% endblock %}
