@@ -83,3 +83,40 @@ def LogoutPage(request):
     context = {'type':'success','message':'You are logout'}
     return redirect('login')
 
+def graphics(request):
+    if request.method=="POST":
+        x1 = (int)(request.POST.get("x1"))
+        y1 = (int)(request.POST.get("y1"))
+        x2 = (int)(request.POST.get("x2"))
+        y2 = (int)(request.POST.get("y2"))
+        
+        print(x1,y1,x2,y2)
+        dx = x2 - x1
+        dy = y2 - y1
+
+        step = max(abs(dx),abs(dy))
+        xinc = dx / step
+        yinc = dy / step
+
+        context = {'x_inc':round(xinc,2),'y_inc':round(yinc,2),'result':[],
+                   'x1_x2':f'{x1}-{x2}','y1_y2':f'{y1}-{y2}','dx':dx,'dy':dy,
+                   'step':step,'x1':x1,'y1':y1,'x2':x2,'y2':y2}
+        
+        # Set initial point
+        x = x1
+        y = y1
+
+        # Draw line
+        for i in range(step):
+            cur = {'step':i+1,'xi':round(x,2),'yi':round(y,2),
+                   'xi_1':f'{round(x,2)}+{round(xinc,2)}={round(x+xinc,2)}',
+                   'yi_1':f'{round(y,2)}+{round(xinc,2)}={round(y+yinc,2)}',
+                   'x_y':f'({round(x+xinc,2)},{round(y+yinc,2)})',
+                   'plot_x_y':f'({round(x+xinc)},{round(y+yinc)})'}
+            x += xinc
+            y += yinc
+            context['result'].append(cur)
+        print(context)
+        return render(request,'graphics.html',context)
+    else:
+        return render(request,'graphics.html')
