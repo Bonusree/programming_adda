@@ -35,7 +35,7 @@
         <td class="text-center">{{blog.contributor}}</td>
         <td class="text-center"><button class="btn btn-dark py-0 add-more"
             data-bs-target="#add_more_problem" data-bs-toggle="modal"
-            value="{{blog.blog_id}}">Add more</button></td>
+            value="{{blog.blog_id}}">Add more</button>
         <td class="text-center">{{blog.comment}}</td>
       </tr>
     {% endfor %}
@@ -101,20 +101,21 @@
             aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="" method="POST">
+          <form action="{% url 'add_related_problem' %}" method="POST" >
             {% csrf_token %}
-            <div class="form-group input_fields_wrap" id="related_problems">
+            <div class="form-group input_fields_wrap text-center" id="related_problems">
               <label for="code" class="mt-2">If
                 you don't find problem skip it. After add problem you will find
                 and also can add it in future.</label><br>
-
+                <input type="hidden" name="number_of_problems" value="1"/>
+                <input type="hidden" name="blog_id" value=""/>
               <div class="row my-2">
-                <div class="dropdown col-4">
+                <div class="dropdown col-5">
                   <button class="btn btn-secondary dropdown-toggle"
                     style="width: 100%;" type="button" id="judgebutton"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <input class="btn btn-secondary p-0" type="button"
-                      name="judge" value="Select judge"/>
+                      name="judge0" value="Select judge"/>
                   </button>
                   <ul class="dropdown-menu scrollable-menu"
                     aria-labelledby="judgebutton" style="width: 100%;">
@@ -128,14 +129,14 @@
                         style="width: 100%;">New judge</a></li>
                   </ul>
                 </div>
-                <input type="text" class="col-4" name="mytext0"
+                <input type="text" class="col-6" name="problem0"
                   placeholder="Enter Problem name">
-                <button type="button" class="mx-2 col-2 btn btn-dark">Remove</button>
               </div>
             </div>
             <div class="text-center">
-              <button class="btn btn-dark mt-3" id="add_more_problem"
+              <button class="btn btn-dark mt-3" id="add_more_button"
                 type="button">Add more problem</button>
+              <button class="btn btn-dark mt-3 disabled" type="button" id="remove_btn">Remove</button>
               <button class="btn btn-dark mt-3" type="submit">Submit</button>
             </div>
           </form>
@@ -149,35 +150,50 @@
   <script>
 // {% comment %} problem link {% endcomment %}
 $(document).ready(function() {
-        var max_fields      = 20; //maximum input boxes allowed
-        var add_button      = $("#add_more_problem"); //Add button ID
-        var index=0;
-        $(add_button).click(function(e){  
-            index++;  // Increment the index variable
-            console.log("index"+index);
-            if(index>=max_fields){
-                alert("You can not add more!");
-                return;
-            }
-            var inputHtml = '<input type="text" class="col-4" name="mytext' + index + '" placeholder="Enter Problem name">';
-            var divHtml = '<div class="row my-2">' +
-            '<div class="dropdown col-4">' +
-            '<button class="btn btn-secondary dropdown-toggle" style="width: 100%;" type="button" id="judgebutton" data-bs-toggle="dropdown" aria-expanded="false">' +
-            '<input class="btn btn-secondary p-0" type="button" name="judge" value="Select judge"/>' +
-            '</button>' +
-            '<ul class="dropdown-menu scrollable-menu" aria-labelledby="judgebutton" style="width: 100%;">' +
-            '{% for judge in judges %}' +
-            '<li><button class="judge-name btn btn-light" type="button" style="width: 100%;">{{judge}}</button></li>' +
-            '{% endfor %}' +
-            '<li><hr class="dropdown-divider"></li>' +
-            '<li><button class="btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#newjudgemodal" style="width: 100%;">New judge</a></li>' +
-            '</ul>' +
-            '</div>' +
-            inputHtml +
-            '<button type="button" class="mx-2 col-2 btn btn-dark">Remove</button>' +
-            '</div>';
-            $("#related_problems").append(divHtml);
-        });
-    });
+  var max_fields = 7; //maximum input boxes allowed
+  var add_button = $("#add_more_button"); //Add button ID
+  var index=0;
+  $(add_button).click(function(e){  
+      index++;  // Increment the index variable
+      console.log("index"+index);
+      if(index==1){
+        $('#remove_btn').toggleClass('disabled');
+      }
+      if(index>=max_fields){
+          index--;
+          alert("You can not add more!");
+          return;
+      }
+      $("input[name='number_of_problems']").val(index+1);
+      var inputHtml = '<input type="text" class="col-6" name="problem' + index + '" placeholder="Enter Problem name">';
+      var divHtml = '<div class="row my-2" id="row'+index+'">' +
+      '<div class="dropdown col-5">' +
+      '<button class="btn btn-secondary dropdown-toggle" style="width: 100%;" type="button" id="judgebutton" data-bs-toggle="dropdown" aria-expanded="false">' +
+      '<input class="btn btn-secondary p-0" type="button" name="judge'+index+'" value="Select judge"/>' +
+      '</button>' +
+      '<ul class="dropdown-menu scrollable-menu" aria-labelledby="judgebutton" style="width: 100%;">' +
+      '{% for judge in judges %}' +
+      '<li><button class="judge-name btn btn-light" type="button" style="width: 100%;">{{judge}}</button></li>' +
+      '{% endfor %}' +
+      '<li><hr class="dropdown-divider"></li>' +
+      '<li><button class="btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#newjudgemodal" style="width: 100%;">New judge</a></li>' +
+      '</ul>' +
+      '</div>' +
+      inputHtml +
+      '</div>';
+      $("#related_problems").append(divHtml);
+  });
+  $("#remove_btn").on('click',function(){
+    var rmvItem = document.getElementById("row"+index);
+    rmvItem.remove();
+    index--;
+    if(index==0){
+      $('#remove_btn').toggleClass('disabled');
+    }
+  });
+  $(".add-more").on('click',function(){
+    $("input[name='blog_id']").val($(this).val());
+  });
+});
 </script>
   {% endblock %}

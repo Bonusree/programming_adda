@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 
 from .models import Blogs
+from problems.models import Judge
 
 def blogs(request):
     context = {"type":'','message':''}
@@ -12,7 +13,8 @@ def blogs(request):
         pass
     else:
         all_blogs = Blogs.objects.all()
-        context = {'blogs':[]}
+        judges = Judge.objects.all()
+        context = {'blogs':[],'judges':[judge.name for judge in judges]}
         for b in all_blogs:
             blog = {'name':b.title,'link':b.link,
                     'description':b.description,'comment':b.additional_comment,
@@ -49,3 +51,20 @@ def add_blogs(request):
             
     else:
         return render(request, 'add_blogs.html')
+    
+def add_blog_related_problem(request):
+    if request.method=="POST":
+        number_of_problems = request.POST.get("number_of_problems")
+        blog_id = request.POST.get("blog_id")
+        
+        problem_list = []
+        for i in range(0,number_of_problems):
+            problem_name = request.POST.get(f"problem{i}")
+            judge_name = request.POST.get(f"judge{i}")
+            if len(problem_name)>0:
+                print(f"judge {judge_name}, problem {problem_name}")
+                
+        
+        return render(request, 'add_blogs.html')
+    else:
+        pass
