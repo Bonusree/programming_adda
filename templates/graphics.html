@@ -6,11 +6,20 @@
 
 {% block content %}
 <div class="container-fluid" style="min-height: 100vh;">
-    <div class="card col-12 col-md-6 col-lg-4 m-auto" >
+    <div class="card col-12 col-md-6 col-lg-4 m-auto">
         <div class="card-header">DDA algorithm</div>
         <div class="card-body">
             <form action="{% url 'graphics' %}" method="POST" id="graphics">
                 {% csrf_token %}
+                <div class="form-group mt-2">
+                    <select class="form-control" id="type" name="type">
+                        <option value="">Select algorithm</option>
+                        <option value="dda_1">DDA method 1</option>
+                        <option value="dda_2">DDA method 2</option>
+                        <option value="bresenham">Bresenham</option>
+                    </select>
+
+                </div>
                 <div class="form-group mt-2">
                     <input type="text" class="form-control"
                         id="x1" name="x1"
@@ -31,48 +40,146 @@
                         id="y2" name="y2"
                         placeholder="Enter y2 value">
                 </div>
-                
+
                 <div class="text-center">
                     <button type="submit" class="btn btn-dark mt-3">Get result</button>
                 </div>
             </form>
         </div>
     </div>
-    {% if x_inc is not None%}
-        <div style="max-width: 600px; margin: 20px auto;">
-            Here I define two points as <i>x<sub>1</sub>={{x1}}, y<sub>1</sub>={{y1}}</i> and <i>x<sub>2</sub>={{x2}}, y<sub>2</sub>={{y2}}</i>. Now following above mentioned algorithm I will find out all pixel points and showing it in a table.<br>
-            <i>dx = {{x1_x2}} = {{dx}}</i><br>
-            <i>dy = {{y1_y2}} = {{dy}}</i><br>
-            <i>step = {{step}}</i><br>
-            <i>X<sub>increment</sub> = {{x_inc}}</i><br>
-            <i>Y<sub>increment</sub> = {{y_inc}}</i><br>
+    {% if result is not None%}
+    <div style="max-width: 600px; margin: 20px auto;">
+        {% if type == 'dda_1' %}
+        Here I define two points as <i>x<sub>1</sub>={{x1}}, y<sub>1</sub>={{y1}}</i>
+        and <i>x<sub>2</sub>={{x2}}, y<sub>2</sub>={{y2}}</i>. Now following
+        above mentioned algorithm I will find out all pixel points and showing
+        it in a table.<br>
+        <i>dx = {{x1_x2}} = {{dx}}</i><br>
+        <i>dy = {{y1_y2}} = {{dy}}</i><br>
+        <i>step = {{step}}</i><br>
+        <i>X<sub>increment</sub> = {{x_inc}}</i><br>
+        <i>Y<sub>increment</sub> = {{y_inc}}</i><br>
+        {% endif %}
+        {% if type == 'bresenham' %}
+        {% for des in description %}
+        {{des}}<br>
+        {% endfor %}
+        {% endif %}
 
-        </div>
-        <!-- {{result}}
+    </div>
+    <!-- {{result}}
         <div class="mt-5"></div> -->
-        <table class="table table-striped table-hover table-bordered m-auto"
-            style="max-width: 600px;">
-            <tr>
-                <th class="text-center">Step</th>
-                <th class="text-center">X<sub>i</sub></th>
-                <th class="text-center">Y<sub>i</sub></th>
-                <th class="text-center">X<sub>i+1</sub>=X<sub>i</sub>+{{x_inc}}</th>
-                <th class="text-center">Y<sub>i+1</sub>=Y<sub>i</sub>+{{y_inc}}</th>
-                <th class="text-center">(X<sub>i+1</sub>,Y<sub>i+1</sub>)</th>
-                <th class="text-center">Pixel</th>
-            </tr>
-            {% for row in result %}
-            <tr>
-                <td>{{row.step}}</td>
-                <td>{{row.xi}}</td>
-                <td>{{row.yi}}</td>
-                <td>{{row.xi_1}}</td>
-                <td>{{row.yi_1}}</td>
-                <td>{{row.x_y}}</td>
-                <td>{{row.plot_x_y}}</td>
-            </tr>
+    <table class="table table-striped table-hover table-bordered m-auto"
+        style="max-width: 600px;">
+        <tr>
+            {% for heading in headings %}
+            <th class="text-center">{{heading}}</th>
             {% endfor %}
-        </table>
+        </tr>
+        {% for row in result %}
+        <tr>
+            {% if type == 'dda_1' %}
+            <td>{{row.step}}</td>
+            <td>{{row.xi}}</td>
+            <td>{{row.yi}}</td>
+            <td>{{row.xi_1}}</td>
+            <td>{{row.yi_1}}</td>
+            <td>{{row.x_y}}</td>
+            <td>{{row.plot_x_y}}</td>
+            {% endif %}
+            {% if type == 'bresenham' %}
+            <td class="text-center px-3">{{row.x1}}</td>
+            <td class="text-center px-3">{{row.y1}}</td>
+            <td class="text-center px-3">({{row.x1}},{{row.y1}})</td>
+            <td>{{row.f_l}}<br>{{row.l_l}}</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
     {% endif %}
+    <!-- {{points}} -->
+    <div style="justify-content: center;align-items: center;">
+        <canvas id="myChart" style="max-width: 50%; width: 300px;
+            height:300px;"></canvas>
+        <button onclick="saveChart()">Save chart</button>
+    </div>
+
 </div>
+<script>
+    const xValues = {{x_values|safe}};
+    const yValues = {{y_values|safe}};
+    const dataPoints = {{points|safe}}
+    const fig = "{{figure_title|safe}}"
+    console.log(xValues)
+    console.log(yValues)
+    console.log(dataPoints)
+    console.log(fig)
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: xValues,
+            datasets: [{
+                data: dataPoints,
+                lineTension: 0,
+                backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                borderColor: 'rgba(0, 0, 0, 1)',
+                borderWidth: 2,
+                fill:false,
+                pointRadius: 6,
+                pointBackgroundColor: 'rgba(0, 0, 0, 1)',
+                pointBorderColor: 'rgba(0, 0, 0, 1)',
+                pointHoverRadius: 8,
+                pointHoverBackgroundColor: 'rgba(0, 0, 255, 1)',
+                pointHoverBorderColor: 'rgba(0, 0, 255, 1)'
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: fig,
+                fontSize: 18,
+                fontColor: "#333"  ,
+                position: 'bottom'
+            },
+            legend: {
+                display: false
+            },
+            scales: {
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'X-Axis'
+                    },
+                    ticks: {
+                        min: Math.min(...xValues),
+                        max: Math.max(...xValues),
+                        stepSize: 1
+                    }
+                }],
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Y-Axis'
+                    },
+                    ticks: {
+                        min: Math.min(...yValues),
+                        max: Math.max(...yValues),
+                        stepSize: 1
+                    }
+                }]
+            }
+        }
+    });
+    function saveChart() {
+      var canvas = document.getElementById('myChart');
+      var img = canvas.toDataURL('image/png');
+      var link = document.createElement('a');
+      link.href = img;
+      link.download = 'chart.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
 {% endblock %}
