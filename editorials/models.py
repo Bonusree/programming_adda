@@ -7,7 +7,7 @@ from problems.models import Tag, Judge,Problem
 
 
 class Editorials(models.Model):
-    problem = models.ForeignKey(Problem, on_delete=models.CASCADE,null=True)
+    related_problem = models.ManyToManyField(Problem,blank=True)
     editorial_description = models.TextField()
     code = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
