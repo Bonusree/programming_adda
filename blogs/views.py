@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 
 from .models import Blogs
-from problems.models import Judge
+from problems.models import Judge,Problem
 
 def blogs(request):
     context = {"type":'','message':''}
@@ -13,12 +13,12 @@ def blogs(request):
         pass
     else:
         all_blogs = Blogs.objects.all()
-        judges = Judge.objects.all()
-        context = {'blogs':[],'judges':[judge.name for judge in judges]}
+        context = {'blogs':[]}
         for b in all_blogs:
+            related_problem = b.related_problem.all()
             blog = {'name':b.title,'link':b.link,
                     'description':b.description,'comment':b.additional_comment,
-                    'contributor':b.user,'blog_id':b.id}
+                    'contributor':b.user,'blog_id':b.id,'problems':[{'link':problem.link,'name':problem.name} for problem in related_problem]}
             
             context['blogs'].append(blog)
         print("context-----------\n",context)
@@ -52,19 +52,25 @@ def add_blogs(request):
     else:
         return render(request, 'add_blogs.html')
     
+@login_required
 def add_blog_related_problem(request):
     if request.method=="POST":
-        number_of_problems = request.POST.get("number_of_problems")
+        number_of_problems = (int)(request.POST.get("number_of_problems"))
         blog_id = request.POST.get("blog_id")
+        blog_object = Blogs.objects.get(id=blog_id)
+        user = request.user
         
-        problem_list = []
         for i in range(0,number_of_problems):
-            problem_name = request.POST.get(f"problem{i}")
-            judge_name = request.POST.get(f"judge{i}")
-            if len(problem_name)>0:
-                print(f"judge {judge_name}, problem {problem_name}")
-                
-        
-        return render(request, 'add_blogs.html')
+            problem_link = request.POST.get(f"problem{i}")
+            if len(problem_link)>0:
+                try:
+                    problem = Problem.objects.get_or_create(link=problem_link,user=user)
+                    blog_object.related_problem.add(problem[0])
+                    problem = Problem.objects.get(link=problem_link,user=user)
+                    problem.blog.add(blog_object)
+                    print("created one")
+                except Exception as e:
+                    print("error ",e)
+        return redirect('blogs')
     else:
         pass

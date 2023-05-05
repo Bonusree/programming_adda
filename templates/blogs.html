@@ -30,10 +30,14 @@
     </tr>
     {% for blog in blogs%}
       <tr>
-        <td class="text-center"><a href="{{ blog.link }}"> {{ blog.name }} </a></td>
+        <td class="text-center"><a href="{{ blog.link }}" target="_blank"> {{ blog.name }} </a></td>
         <td class="text-center">{{blog.description}}</td>
         <td class="text-center">{{blog.contributor}}</td>
-        <td class="text-center"><button class="btn btn-dark py-0 add-more"
+        <td class="text-center">
+          {% for blog_problem in blog.problems %}
+            <a href="{{ blog_problem.link }}" target="_blank"> {{ blog_problem.name }} </a>|
+          {% endfor %}
+          <button class="btn btn-dark py-0 add-more"
             data-bs-target="#add_more_problem" data-bs-toggle="modal"
             value="{{blog.blog_id}}">Add more</button>
         <td class="text-center">{{blog.comment}}</td>
@@ -92,8 +96,7 @@
     data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="add_more_problemLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 700px;
-      width: 700px;">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="add_more_problemLabel">Add related problem</h5>
@@ -103,35 +106,17 @@
         <div class="modal-body">
           <form action="{% url 'add_related_problem' %}" method="POST" >
             {% csrf_token %}
-            <div class="form-group input_fields_wrap text-center" id="related_problems">
+            <div class="form-group input_fields_wrap text-center ">
               <label for="code" class="mt-2">If
                 you don't find problem skip it. After add problem you will find
                 and also can add it in future.</label><br>
                 <input type="hidden" name="number_of_problems" value="1"/>
                 <input type="hidden" name="blog_id" value=""/>
-              <div class="row my-2">
-                <div class="dropdown col-5">
-                  <button class="btn btn-secondary dropdown-toggle"
-                    style="width: 100%;" type="button" id="judgebutton"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <input class="btn btn-secondary p-0" type="button"
-                      name="judge0" value="Select judge"/>
-                  </button>
-                  <ul class="dropdown-menu scrollable-menu"
-                    aria-labelledby="judgebutton" style="width: 100%;">
-                    {% for judge in judges %}
-                    <li><button class="judge-name btn btn-light" type="button"
-                        style="width: 100%;">{{judge}}</button></li>
-                    {% endfor %}
-                    <li><hr class="dropdown-divider"></li>
-                    <li><button class="btn btn-light" type="button"
-                        data-bs-toggle="modal" data-bs-target="#newjudgemodal"
-                        style="width: 100%;">New judge</a></li>
-                  </ul>
-                </div>
-                <input type="text" class="col-6" name="problem0"
-                  placeholder="Enter Problem name">
-              </div>
+                <ol id="related_problems">
+                  <li><input type="text" class="mx-auto mt-2" style="width: 70%;" name="problem0"
+                    placeholder="Enter problem original link"></li>
+                  </li>
+                </ol>
             </div>
             <div class="text-center">
               <button class="btn btn-dark mt-3" id="add_more_button"
@@ -165,23 +150,8 @@ $(document).ready(function() {
           return;
       }
       $("input[name='number_of_problems']").val(index+1);
-      var inputHtml = '<input type="text" class="col-6" name="problem' + index + '" placeholder="Enter Problem name">';
-      var divHtml = '<div class="row my-2" id="row'+index+'">' +
-      '<div class="dropdown col-5">' +
-      '<button class="btn btn-secondary dropdown-toggle" style="width: 100%;" type="button" id="judgebutton" data-bs-toggle="dropdown" aria-expanded="false">' +
-      '<input class="btn btn-secondary p-0" type="button" name="judge'+index+'" value="Select judge"/>' +
-      '</button>' +
-      '<ul class="dropdown-menu scrollable-menu" aria-labelledby="judgebutton" style="width: 100%;">' +
-      '{% for judge in judges %}' +
-      '<li><button class="judge-name btn btn-light" type="button" style="width: 100%;">{{judge}}</button></li>' +
-      '{% endfor %}' +
-      '<li><hr class="dropdown-divider"></li>' +
-      '<li><button class="btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#newjudgemodal" style="width: 100%;">New judge</a></li>' +
-      '</ul>' +
-      '</div>' +
-      inputHtml +
-      '</div>';
-      $("#related_problems").append(divHtml);
+      var inputHtml = '<li><input type="text" class="mx-auto mt-2" style="width: 70%;" name="problem' + index + '" placeholder="Enter problem original link"></li>';
+      $("#related_problems").append(inputHtml);
   });
   $("#remove_btn").on('click',function(){
     var rmvItem = document.getElementById("row"+index);
