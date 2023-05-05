@@ -109,13 +109,14 @@ def DDA_1(x1,y1,x2,y2):
     for i in range(step):
         cur = {'step':i+1,'xi':round(x,2),'yi':round(y,2),
                 'xi_1':f'{round(x,2)}+{round(xinc,2)}={round(x+xinc,2)}',
-                'yi_1':f'{round(y,2)}+{round(xinc,2)}={round(y+yinc,2)}',
+                'yi_1':f'{round(y,2)}+{round(yinc,2)}={round(y+yinc,2)}',
                 'x_y':f'({round(x+xinc,2)},{round(y+yinc,2)})',
                 'plot_x_y':f'({round(x+xinc)},{round(y+yinc)})'}
         context['points'].append({'x':round(x+xinc),'y':round(y+yinc)})
         x += xinc
         y += yinc
         context['result'].append(cur)
+    print(context)
     return context
     
 def bresenham(x1,y1,x2,y2):
