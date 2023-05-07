@@ -39,7 +39,8 @@
         <th class="text-center">Tag</th>
         <th class="text-center">OJ name</th>
         <th class="text-center">Contributer</th>
-        <th class="text-center">Resource</th>
+        <th class="text-center">Editorial</th>
+        <th class="text-center">Blog</th>
         <th class="text-center">Additional Comment</th>
       </tr>
     </thead>
@@ -51,18 +52,22 @@
         <td>{% for tag in problem.tags %} {{ tag }} | {% endfor %}</td>
         <td>{{ problem.oj }}</td>
         <td>{{ problem.contributor }}</td>
-        <td>
-          <div class="row m-1 text-center">
-            <button class="btn btn-primary col-6 my-1" type="button">Editorial</button>
-            <div class="col-1 my-1"></div>
-            <button class="btn btn-primary col-5" type="button">Blog</button>
-          </div>
+        <td class="text-center">
+            <a href="#">No editorial</a>
+        </td>
+        <td class="text-center">
+          {% for blog in problem.blogs %}
+              <a href="{{blog.blog_link}}">{{blog.blog_name}} </a>
+          {% endfor %}
         </td>
         <td>{{ problem.comment }}</td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+
+
+
   <nav aria-label="Page navigation">
     <ul class="pagination justify-content-center">
       <li class="page-item">

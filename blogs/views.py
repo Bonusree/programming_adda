@@ -68,7 +68,6 @@ def add_blog_related_problem(request):
                     blog_object.related_problem.add(problem[0])
                     problem = Problem.objects.get(link=problem_link,user=user)
                     problem.blog.add(blog_object)
-                    print("created one")
                 except Exception as e:
                     print("error ",e)
         return redirect('blogs')

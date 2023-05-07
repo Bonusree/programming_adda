@@ -20,10 +20,13 @@ def problems(request):
         context = {'problems':[]}
         for p in allProblems:
             problem = {'name':p.name,'link':p.link,
-                    'tags':[],'comment':p.comment,
+                    'tags':[],'blogs':[], 'comment':p.comment,
                     'oj':p.judge, 'contributor':p.user}
             for t in p.tags.all():
                 problem['tags'].append(t.name)
+            for b in p.blog.all():
+                problem['blogs'].append({'blog_name':b.title,'blog_link':b.link})
+                print(f"title --- {b.title} link --- {b.link}")
             context['problems'].append(problem)
         # print("context-----------\n",context)
         return render(request, 'problems.html',context=context)
