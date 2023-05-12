@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  <title>profile</title>
+<title>profile</title>
 {% endblock %}
 
 {% block content %}
@@ -28,180 +28,198 @@
 
 <!-- left side -->
 
-<div class="container-fluid m-5" style="width: 93%;" >
+<div class="container-fluid m-5" style="width: 93%;">
   <div class="row">
-    <div class="col-8" >
-      <div id="section2" class="card text-dark bg-light m-4" style="max-width: 50rem;">
+    <div class="col-8">
+      <div id="section2" class="card text-dark bg-light m-4" style="max-width:
+        50rem;">
         <div class="card-header d-inline-flex ">
           <div class="flex-fill">Blogs</div>
           <div><a href="/addblogs">Add</a></div>
           <div class="mx-3"><a href="/editblogs">edit</a></div>
         </div>
-        <div  class="card m-4 p-3">
+        <div class="card m-4 p-3">
           <h5 class="card-title">Success card title</h5>
         </div>
-        <div  class="card m-4 p-3">
+        <div class="card m-4 p-3">
           <h5 class="card-title">Success card title</h5>
         </div>
       </div>
-      <div id="section3" class="card text-dark bg-light m-4" style="max-width: 50rem;">
+      <div id="section3" class="card text-dark bg-light m-4" style="max-width:
+        50rem;">
         <div class="card-header d-inline-flex ">
           <div class="flex-fill">Editorials</div>
           <div><a href="/addeditorial">Add</a></div>
           <div class="mx-3"><a href="/editEditorial">edit</a></div>
         </div>
-        <div  class="card m-4 p-3">
+        <div class="card m-4 p-3">
           <h5 class="card-title m-2">Success card title</h5>
         </div>
-        <div  class="card m-4 p-3">
+        <div class="card m-4 p-3">
           <h5 class="card-title">Success card title</h5>
         </div>
       </div>
-      <div id="section4" class="card text-dark bg-light m-4" style="max-width: 50rem;">
+      <div id="section4" class="card text-dark bg-light m-4" style="max-width:
+        50rem;">
         <div class="card-header d-inline-flex ">
           <div class="flex-fill">Problems</div>
           <div><a href="/addproblems">Add</a></div>
           <div class="mx-3"><a href="/editproblems">edit</a></div>
         </div>
-        <div  class="card m-4 p-3">
+        <div class="card m-4 p-3">
           <h5 class="card-title m-2">Success card title</h5>
         </div>
-        <div  class="card m-4 p-3">
+        <div class="card m-4 p-3">
           <h5 class="card-title">Success card title</h5>
         </div>
       </div>
     </div>
 
 
-<!-- edit profile -->
+    <!-- edit profile -->
 
     <div class="col-4 " style="background-color:lavender;">
-      <img class="card-img-top mr-3 mt-3" src="/static/imgs/editorials.jpg" alt="Jane Doe" class="rounded-circle" style="width: 400px;">
-        <div class="card-body">
-          <div class="container mt-3">
-            <h3>Name of user</h3>
-            <p>Bio</p>
-            <ul class="nav nav-tabs nav-justified">
-              <li class="nav-item">
-                <i class='fas fa-user-friends'></i>
-                <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#followers">
-                  followers<i class='fas fa-user-friends'></i>
-                </button>
-              </li>
-              <li class="nav-item">
-                <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#following">
-            following
-          </button>
-              </li>
-            </ul>
+      <img class="card-img-top mr-3 mt-3" src="/static/imgs/common_profile.png"
+        alt="Jane Doe" class="rounded-circle" style="width: 400px;">
+      <div class="card-body">
+        <div class="container mt-3">
+          <h3>{{user}}</h3>
+          <p>{{full_name}} <br>{{user.email}}  </p>
+          {% if bio %}
+          <p>Bio: {{bio}}</p>
+          {% endif %}
+          <div class="row justify-content-between">
+            <div class="col-5">
+              <i class='fas fa-user-friends'></i>
+              Followers
+            </div>
+            <div class="col-5">
+              <i class='fas fa-user-friends'></i>
+              Following
+            </div>
+          </div>
 
-          <button type="button" class="btn btn-outline-secondary m-3" data-bs-toggle="modal" data-bs-target="#editProfile" style="width: 80%;">
+
+          <button type="button" class="btn btn-outline-secondary m-3"
+            data-bs-toggle="modal" data-bs-target="#editProfile" style="width:
+            80%;">
             Edit Profile
           </button>
-        
-          <button type="button" class="btn btn-outline-secondary m-3" data-bs-toggle="modal" data-bs-target="#addsite" style="width: 80%;">
-            Add cites
+
+          <button type="button" class="btn btn-outline-secondary m-3"
+            data-bs-toggle="modal" data-bs-target="#addsite" style="width:
+            80%;">
+            Add site
           </button>
+          {% if social_sites %} 
+            <ul>
+              {% for site in social_sites %}
+                <li><a href="{{site.url}}">{{site.title}}</a></li>
+              {% endfor %}
+            </ul>
+          {% endif %}
         </div>
 
-<!-- The Modal -->
+        <!-- The Modal -->
 
- <!-- edit profile modal -->
-<div class="modal" id="editProfile">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
+        <!-- edit profile modal -->
+        <div class="modal" id="editProfile">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-       
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
+              <!-- Modal Header -->
+              <div class="modal-header">
 
-      <!-- Modal body -->
-      <div class="modal-body">
-        <form action="/">
-          <div class="mb-3 mt-3">
-            <label for="Name" class="form-label">Full Name:</label>
-            <input type="text" class="form-control" id="name" placeholder="Enter Your full name" name="name">
-          </div>
-          <div class="mb-3 mt-3">
-            <label for="bio">bios:</label>
-          <textarea class="form-control" rows="5" id="bio" name="text"></textarea>
-          </div>
-          <div class="mb-3 mt-3">
-            <label for="email" class="form-label">Email:</label>
-            <input type="email" class="form-control" id="email" placeholder="public your email" name="email">
-          </div>
-          <div class="mb-3">
-            <label for="pwd" class="form-label">Password:</label>
-            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
-          </div>
-          <!-- <div class="form-check mb-3">
-            <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" name="remember"> Remember me
-            </label>
-          </div> -->
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
 
-      <!-- Modal foote  r -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+              <!-- Modal body -->
+              <form action="{% url 'profile' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="type" value="updateprofile"/>
+                <div class="modal-body">
+                  <div class="mb-3 mt-3">
+                    <label for="Name" class="form-label">Full Name:</label>
+                    <input type="text" class="form-control" id="name"
+                      placeholder="Enter Your full name" name="name"
+                      value="{{full_name}}">
+                  </div>
+                  <div class="mb-3 mt-3">
+                    <label for="bio">Bio:</label>
+                    <textarea type="text" class="form-control" rows="5" id="bio"
+                      name="bio"></textarea>
+                  </div>
+                  <div class="mb-3 mt-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" id="email"
+                      placeholder="public your email" name="email" value="{{user.email}}" disabled>
+                  </div>
+                  <div class="mb-3">
+                    <label for="pwd" class="form-label">Password:</label>
+                    <input type="password" class="form-control" id="pwd"
+                      placeholder="Enter password" name="password" disabled>
+                  </div>
+                </div>
+
+                <!-- Modal foote  r -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger"
+                    data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="modal" id="addsite">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+
+              <!-- Modal body -->
+              <form action="{% url 'profile' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="type" value="addsite"/>
+                <div class="modal-body">
+                  <div class="row mb-3 mt-3">
+                    <div class="col-6">
+                      <label for="website" class="form-label">Website title:</label>
+                      <input type="text" class="form-control" id="website_title"
+                        placeholder="Website title" name="website_title">
+                    </div>
+                    <div class="col-6">
+                      <label for="website" class="form-label">Website url:</label>
+                      <input type="url" class="form-control" id="website_url"
+                        placeholder="Website url" name="website_url">
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- Modal foote  r -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger"
+                    data-bs-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
   </div>
-</div>
-  
-<div class="modal" id="addsite">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-       
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        <form action="/">
-          <div class="mb-3 mt-3">
-            <label for="website" class="form-label">Website:</label>
-            <input type="text" class="form-control" id="website" placeholder="website" name="website">
-          </div>
-
-          <div class="mb-3 mt-3">
-            <label for="socialsite" class="form-label">Social site:</label>
-            <input type="site" class="form-control mb-3" id="site" placeholder="" name="site1" >
-            <input type="site" class="form-control mb-3" id="site" placeholder="" name="site2">
-            <input type="site" class="form-control mb-3" id="site" placeholder="" name="site3">
-          </div>
-          
-          <!-- <div class="form-check mb-3">
-            <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" name="remember"> Remember me
-            </label>
-          </div> -->
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      </div>
-
-      <!-- Modal foote  r -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-    </div>
-    
-  </div>
-</div>
-
-<script>
+  <script>
 $(document).ready(function() {
   // Get all menu items
   var menuItems = $('.nav-link');
@@ -218,5 +236,4 @@ $(document).ready(function() {
 
 
 </script>
- 
-{% endblock%}
+  {% endblock%}

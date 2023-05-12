@@ -22,6 +22,10 @@
   border: 1px solid #68d57b;
   background-color: #9eff9275;
 }
+.global-message.info{
+  border: 1px solid #0fa8cf;
+  background-color: #46d5f9;
+}
 
 
 
