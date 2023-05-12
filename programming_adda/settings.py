@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'contestants',
     'editorials',
     'problems',
-    'djongo',
+    # 'djongo',
 ]
 
 MIDDLEWARE = [
@@ -82,11 +82,17 @@ WSGI_APPLICATION = 'programming_adda.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'Programming_adda',
+#         'ENFORCE_SCHEMA': False,
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'Programming_adda',
-        'ENFORCE_SCHEMA': False,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
