@@ -6,6 +6,10 @@ from django.views.decorators.csrf import csrf_protect
 from django.db.utils import DatabaseError
 
 from django.utils.safestring import mark_safe
+
+from problems.models import Problem
+from blogs.models import Blogs
+from contestants.models import Profile
 # Create your views here.
 
 @csrf_protect
@@ -78,6 +82,12 @@ def homePage(request):
     context = request.session.get('context', None)
     if context!=None:
         del request.session['context']
+    else:
+        context = {}
+    context['problems']=Problem.objects.count()
+    context['blogs']=Blogs.objects.count()
+    context['contributors']=Profile.objects.count()
+    context['editorials']=0
     return render (request,'home.html',context=context)
 
 def LogoutPage(request):

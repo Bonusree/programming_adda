@@ -70,6 +70,17 @@ def profile(request):
                     'title':site.title,
                     'url':site.url
                 })
+    user_problems = Problem.objects.filter(user=request.user)
+    if user_problems.exists():
+        context['problems'] = []
+        for problem in user_problems:
+            context['problems'].append({'title':problem.name,'url':problem.link})
+    user_blogs = Blogs.objects.filter(user=request.user)
+    if user_blogs.exists():
+        context['blogs'] = []
+        for blog in user_blogs:
+            context['blogs'].append({'title':blog.title,'url':blog.link})
+            
     return render(request, 'profile.html',context=context)
 
 def single_user_info(request):

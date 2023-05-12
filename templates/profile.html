@@ -31,48 +31,60 @@
 <div class="container-fluid m-5" style="width: 93%;">
   <div class="row">
     <div class="col-8">
+      {% if blogs %}
       <div id="section2" class="card text-dark bg-light m-4" style="max-width:
         50rem;">
         <div class="card-header d-inline-flex ">
           <div class="flex-fill">Blogs</div>
-          <div><a href="/addblogs">Add</a></div>
-          <div class="mx-3"><a href="/editblogs">edit</a></div>
+          <div><a href="{% url 'add_blogs' %}">Add</a></div>
+          <div class="mx-3"><a href="#">Edit</a></div>
         </div>
         <div class="card m-4 p-3">
-          <h5 class="card-title">Success card title</h5>
-        </div>
-        <div class="card m-4 p-3">
-          <h5 class="card-title">Success card title</h5>
+          <h5>Your added blog/s</h5>
+          <ul>
+            {% for blog in blogs %}
+            <li><a href="{{blog.url}}"> {{blog.title}}</a></li>
+            {% endfor %}
+          </ul>
         </div>
       </div>
+      {% endif %}
+      {% if editorials %}
       <div id="section3" class="card text-dark bg-light m-4" style="max-width:
         50rem;">
         <div class="card-header d-inline-flex ">
           <div class="flex-fill">Editorials</div>
-          <div><a href="/addeditorial">Add</a></div>
-          <div class="mx-3"><a href="/editEditorial">edit</a></div>
+          <div><a href="{% url 'editorials' %}">Add</a></div>
+          <div class="mx-3"><a href="#">Edit</a></div>
         </div>
         <div class="card m-4 p-3">
-          <h5 class="card-title m-2">Success card title</h5>
-        </div>
-        <div class="card m-4 p-3">
-          <h5 class="card-title">Success card title</h5>
+          <h5>Your added editorial/s</h5>
+          <ul>
+            {% for editorial in editorials %}
+            <li>{{editorial.title}}</li>
+            {% endfor %}
+          </ul>
         </div>
       </div>
+      {% endif %}
+      {% if problems %}
       <div id="section4" class="card text-dark bg-light m-4" style="max-width:
         50rem;">
         <div class="card-header d-inline-flex ">
           <div class="flex-fill">Problems</div>
-          <div><a href="/addproblems">Add</a></div>
-          <div class="mx-3"><a href="/editproblems">edit</a></div>
+          <div><a href="{% url 'addproblem' %}">Add</a></div>
+          <div class="mx-3"><a href="#">Edit</a></div>
         </div>
         <div class="card m-4 p-3">
-          <h5 class="card-title m-2">Success card title</h5>
-        </div>
-        <div class="card m-4 p-3">
-          <h5 class="card-title">Success card title</h5>
+          <h5>Your added problem/s</h5>
+          <ul>
+            {% for problem in problems %}
+            <li><a href="{{problem.url}}">{{problem.title}}</a></li>
+            {% endfor %}
+          </ul>
         </div>
       </div>
+      {% endif %}
     </div>
 
 
@@ -106,18 +118,18 @@
             Edit Profile
           </button>
 
+          {% if social_sites %} 
+          <ul>
+            {% for site in social_sites %}
+            <li><a href="{{site.url}}">{{site.title}}</a></li>
+            {% endfor %}
+          </ul>
+          {% endif %}
           <button type="button" class="btn btn-outline-secondary m-3"
             data-bs-toggle="modal" data-bs-target="#addsite" style="width:
             80%;">
             Add site
           </button>
-          {% if social_sites %} 
-            <ul>
-              {% for site in social_sites %}
-                <li><a href="{{site.url}}">{{site.title}}</a></li>
-              {% endfor %}
-            </ul>
-          {% endif %}
         </div>
 
         <!-- The Modal -->
