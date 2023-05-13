@@ -91,8 +91,8 @@
     <!-- edit profile -->
 
     <div class="col-4 " style="background-color:lavender;">
-      <img class="card-img-top mr-3 mt-3" src="/static/imgs/common_profile.png"
-        alt="Jane Doe" class="rounded-circle" style="width: 400px;">
+      <img class="card-img-top mr-3 mt-3" src="{% static '/imgs/common_profile.png %}"
+        alt="{{user}} profile" class="rounded-circle" style="width: 400px;">
       <div class="card-body">
         <div class="container mt-3">
           <h3>{{user}}</h3>
