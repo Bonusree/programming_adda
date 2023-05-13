@@ -22,33 +22,3 @@
 example > [mestu paul](github.com/Mestu-Paul)
 ```
 
-
-## Installed Python Modules
-
-- Django 
-
-```
-python -m pip install Django
-```
-
-- Jquery on Django
-
-```
-pip install django-jquery
-```
-
-- Python SQL Server Connector
-
-```
-pip install pyodbc
-```
-
-- Django SQL Server Connector
-
-```
-pip install django-pyodbc-azure
-```
-
-- pip install  pymongo pymongo==3.12.3
-- djongo
-
