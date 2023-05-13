@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="container" style="min-height: 100vh;">
@@ -33,7 +34,7 @@
     <div class="col-lg-6 col-12 mt-2 mx-auto" style="min-width: 300px; max-width: 400px;">
       <div class="card">
         <div class="card-header text-center fw-bolder text-info">Editorials</div>
-        <img src="static/imgs/editorials.jpg" alt="editorials" class="card-img mx-auto" style="height:200px; width:200x">
+        <img src="{% static 'imgs/editorials.jpg' %}" alt="editorials" class="card-img mx-auto" style="height:200px; width:200x">
         <div class="card-body text-center fw-bolder">
           Total Editorials: {{editorials}}
         </div>
