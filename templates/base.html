@@ -8,31 +8,8 @@
     {% block title %}
       <title>Home</title>
     {% endblock %}
-    <style>
-      {% block style %}
-      /* global message for user  */
-      .global-message{
-        border-radius: 4px;
-        text-align: center;
-        width: 90%;
-        margin: 0 auto;
-        margin-top: 10px;
-      }
-      .global-message.error{
-        border: 1px solid #ff7991;
-        background-color: pink;
-      }
-      .global-message.success{
-        border: 1px solid #68d57b;
-        background-color: #9eff9275;
-      }
-      .global-message.info{
-        border: 1px solid #0fa8cf;
-        background-color: #46d5f9;
-      }
-      {% endblock %}
-
-    </style>
+    {% block style %}
+    {% endblock %}
     <link rel="stylesheet" href="{% static 'style.css' %}" />
 
     <!-- bootstrap  -->

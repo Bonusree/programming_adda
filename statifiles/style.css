@@ -1,0 +1,78 @@
+
+/* this for password show hide btn  */
+.my-eye-btn{
+  border:1px solid #ced4da;
+  background-color: white;
+  border-radius: 0px 4px 4px 0px;
+}
+
+/* global message for user  */
+.global-message{
+  border-radius: 4px;
+  text-align: center;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+.global-message.error{
+  border: 1px solid #ff7991;
+  background-color: pink;
+}
+.global-message.success{
+  border: 1px solid #68d57b;
+  background-color: #9eff9275;
+}
+.global-message.info{
+  border: 1px solid #0fa8cf;
+  background-color: #46d5f9;
+}
+
+
+
+/* change all input box focus  */
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="url"]:focus,
+input[type="color"]:focus,
+textarea[type="text"]:focus,
+button[type="submit"]:focus,
+button[type="button"]:focus,
+.uneditable-input:focus {   
+  border: 1px solid #000000;
+  /* box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 4px rgba(27, 213, 238, 0.6); */
+  box-shadow: none;
+  outline: 0 none;
+}
+
+
+/* this for page numbering  */
+.pagination .page-item.active .page-link {
+  background-color: #212121;
+  border-color: #212121;
+}
+.page-item a:focus{
+  border: 1px solid #b4b4b4;
+  box-shadow: none;
+}
+.page-item a:hover{
+  border: 1px solid #b4b4b4;
+  box-shadow: none;
+}
+
+/* dropdown scrolling */
+.dropdown-menu.show.scrollable-menu {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+}
