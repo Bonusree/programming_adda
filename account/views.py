@@ -63,7 +63,7 @@ def SignupPage(request):
             return render(request,'register.html',context=context)
 
         try:
-            my_user=User.objects.create_user(email, email,pass1)
+            my_user=User.objects.create_user(username=name, email=email,password=pass1)
             my_user.save()
         except DatabaseError as e:
             context['message']=f'Sorry something error with database. Error: {e}'
