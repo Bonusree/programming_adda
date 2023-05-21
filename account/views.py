@@ -12,6 +12,12 @@ from blogs.models import Blogs
 from contestants.models import Profile
 # Create your views here.
 
+def swap(a,b):
+    temp = a
+    a = b
+    b = temp
+    return a,b
+
 @csrf_protect
 def loginPage(request):
     
@@ -97,9 +103,15 @@ def LogoutPage(request):
 
 
 def DDA_1(x1,y1,x2,y2):
+    if x1>x2 or y1>y2:
+        x1,x2=x2,x1
+        y1,y2=y2,y1
     dx = x2 - x1
     dy = y2 - y1
-
+    m = dy/dx
+    if m<0:
+        ctx = {'type':'info','message':f'Slope is {m}, we can not process for negative slope.'}
+        return ctx;
     step = max(abs(dx),abs(dy))
     xinc = dx / step
     yinc = dy / step
@@ -130,11 +142,15 @@ def DDA_1(x1,y1,x2,y2):
     return context
     
 def bresenham(x1,y1,x2,y2):
-    print(x1,y1,x2,y2)
+    if x1>x2 or y1>y2:
+        x1,x2=x2,x1
+        y1,y2=y2,y1
     dx = x2-x1
     dy = y2-y1
     m = round(dy/dx,2)
-    
+    if m<0:
+        ctx = {'type':'error','message':f'Slope is {m}, we can not process for negative slope.'}
+        return ctx;
     ctx = {'type':'bresenham','headings':[mark_safe('X<sub>i</sub>'),mark_safe('Y<sub>i</sub>'),'Plot','Check p<0 or p>=0'],
             'dx':dx,'dy':dy,'m':m,'result':[],'points':[{'x':x1,'y':y1}],'x_values':[x for x in range(max(x1-1,0),x2+2)],'y_values':[y for y in range(max(y1-1,0),y2+2)],
             'figure_title':f'Fig: Drawing line from ({x1},{y1}) to {x2,y2}'}
@@ -202,6 +218,8 @@ def bresenham(x1,y1,x2,y2):
     print(ctx)
     return ctx
 
+def bresenham_cirle(h,k,r):
+    pass
 def graphics(request):
     if request.method=="POST":
         type = request.POST.get("type")
@@ -212,9 +230,7 @@ def graphics(request):
         
         if type=='dda_1':
             return render(request,'graphics.html',context=DDA_1(x1,y1,x2,y2))
-        # elif type=='dda_2':
-        #     return render(request,'graphics.html',context=DDA_2(x1,y1,x2,y2))
-        else:
+        elif type=='bresenham':
             return render(request,'graphics.html',context=bresenham(x1,y1,x2,y2))
     else:
         return render(request,'graphics.html')

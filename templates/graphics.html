@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>Contestant</title>
+<title>Graphics</title>
 {% endblock %}
 
 {% block content %}
@@ -11,34 +11,54 @@
         <div class="card-body">
             <form action="{% url 'graphics' %}" method="POST" id="graphics">
                 {% csrf_token %}
+                <button type="button" onclick="showForm()">btn</button>
                 <div class="form-group mt-2">
-                    <select class="form-control" id="type" name="type">
+                    <select class="form-control" id="type" name="type" onclick="showForm()" required>
                         <option value="">Select algorithm</option>
-                        <option value="dda_1">DDA method 1</option>
-                        <option value="dda_2">DDA method 2</option>
-                        <option value="bresenham">Bresenham</option>
+                        <option value="dda_1">DDA method</option>
+                        <option value="bresenham">Bresenham line</option>
+                        <option value="bresenham_cirle">Bresenham circle</option>
                     </select>
 
                 </div>
-                <div class="form-group mt-2">
-                    <input type="text" class="form-control"
-                        id="x1" name="x1"
-                        placeholder="Enter x1 value">
+                <div id="line-drawing" class="d-none">
+                    <div class="form-group mt-2">
+                        <input type="text" class="form-control"
+                            id="x1" name="x1"
+                            placeholder="Enter x1 value" required>
+                    </div>
+                    <div class="form-group mt-2">
+                        <input type="text" class="form-control"
+                            id="y1" name="y1"
+                            placeholder="Enter y1 value" required>
+                    </div>
+                    <div class="form-group mt-2">
+                        <input type="text" class="form-control"
+                            id="x2" name="x2"
+                            placeholder="Enter x2 value" required>
+                    </div>
+                    <div class="form-group mt-2">
+                        <input type="text" class="form-control"
+                            id="y2" name="y2"
+                            placeholder="Enter y2 value" required>
+                    </div>
                 </div>
-                <div class="form-group mt-2">
-                    <input type="text" class="form-control"
-                        id="y1" name="y1"
-                        placeholder="Enter y1 value">
-                </div>
-                <div class="form-group mt-2">
-                    <input type="text" class="form-control"
-                        id="x2" name="x2"
-                        placeholder="Enter x2 value">
-                </div>
-                <div class="form-group mt-2">
-                    <input type="text" class="form-control"
-                        id="y2" name="y2"
-                        placeholder="Enter y2 value">
+                <div id="circle-drawing" class="d-none">
+                    <div class="form-group mt-2">
+                        <input type="text" class="form-control"
+                            id="h" name="h"
+                            placeholder="Enter h value" required>
+                    </div>
+                    <div class="form-group mt-2">
+                        <input type="text" class="form-control"
+                            id="k" name="k"
+                            placeholder="Enter k value" required>
+                    </div>
+                    <div class="form-group mt-2">
+                        <input type="text" class="form-control"
+                            id="r" name="r"
+                            placeholder="Enter r value" required>
+                    </div>
                 </div>
 
                 <div class="text-center">
@@ -96,16 +116,21 @@
         </tr>
         {% endfor %}
     </table>
-    {% endif %}
-    <!-- {{points}} -->
     <div style="justify-content: center;align-items: center;">
         <canvas id="myChart" style="max-width: 50%; width: 300px;
             height:300px;"></canvas>
         <button onclick="saveChart()">Save chart</button>
     </div>
+    {% endif %}
+    <!-- {{points}} -->
 
 </div>
 <script>
+    function showForm(){
+        // alert($("#type").val());
+        console.log("hello");
+    }
+
     const xValues = {{x_values|safe}};
     const yValues = {{y_values|safe}};
     const dataPoints = {{points|safe}}
