@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('blogs.urls')),
     path('', include('contestants.urls')),
     path('', include('editorials.urls')),
+    path('', include('graphics.urls')),
     path('', include('problems.urls')),
     path('', include('others.urls')),
     path('', include('django.contrib.auth.urls')),

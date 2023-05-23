@@ -6,70 +6,118 @@
 
 {% block content %}
 <div class="container-fluid" style="min-height: 100vh;">
-    <div class="card col-12 col-md-6 col-lg-4 m-auto">
-        <div class="card-header">DDA algorithm</div>
+    <div class="row justify-content-center mb-3">
+        <nav class="navbar navbar-expand-lg navbar-light  p-0 sticky-top">
+            <div class="container-fluid">
+                <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link mx-2  border-dark border-bottom fs-5" aria-current="page" href="#" id="line_drawing">Line</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link mx-2 border-dark  fs-5" aria-current="page" href="#" id="circle_drawing">Circle</a>
+
+                  </li>
+                </ul>
+            </div>
+          </nav>
+    </div>
+    <div class="card col-12 col-md-6 col-lg-4 m-auto d-block" id="line">
+        <div class="card-header">Line Drawing algorithm
+        </div>
         <div class="card-body">
             <form action="{% url 'graphics' %}" method="POST" id="graphics">
                 {% csrf_token %}
-                <button type="button" onclick="showForm()">btn</button>
                 <div class="form-group mt-2">
-                    <select class="form-control" id="type" name="type" onclick="showForm()" required>
+                    <select class="form-control" id="type" name="type" required>
                         <option value="">Select algorithm</option>
                         <option value="dda_1">DDA method</option>
-                        <option value="bresenham">Bresenham line</option>
-                        <option value="bresenham_cirle">Bresenham circle</option>
+                        <option value="bresenham">Bresenham</option>
                     </select>
 
                 </div>
-                <div id="line-drawing" class="d-none">
-                    <div class="form-group mt-2">
-                        <input type="text" class="form-control"
-                            id="x1" name="x1"
-                            placeholder="Enter x1 value" required>
-                    </div>
-                    <div class="form-group mt-2">
-                        <input type="text" class="form-control"
-                            id="y1" name="y1"
-                            placeholder="Enter y1 value" required>
-                    </div>
-                    <div class="form-group mt-2">
-                        <input type="text" class="form-control"
-                            id="x2" name="x2"
-                            placeholder="Enter x2 value" required>
-                    </div>
-                    <div class="form-group mt-2">
-                        <input type="text" class="form-control"
-                            id="y2" name="y2"
-                            placeholder="Enter y2 value" required>
-                    </div>
+                <div class="form-group mt-2">
+                    <input type="text" class="form-control"
+                        id="x1" name="x1"
+                        placeholder="Enter x1 value" required>
                 </div>
-                <div id="circle-drawing" class="d-none">
-                    <div class="form-group mt-2">
-                        <input type="text" class="form-control"
-                            id="h" name="h"
-                            placeholder="Enter h value" required>
-                    </div>
-                    <div class="form-group mt-2">
-                        <input type="text" class="form-control"
-                            id="k" name="k"
-                            placeholder="Enter k value" required>
-                    </div>
-                    <div class="form-group mt-2">
-                        <input type="text" class="form-control"
-                            id="r" name="r"
-                            placeholder="Enter r value" required>
-                    </div>
+                <div class="form-group mt-2">
+                    <input type="text" class="form-control"
+                        id="y1" name="y1"
+                        placeholder="Enter y1 value" required>
                 </div>
+                <div class="form-group mt-2">
+                    <input type="text" class="form-control"
+                        id="x2" name="x2"
+                        placeholder="Enter x2 value" required>
+                </div>
+                <div class="form-group mt-2">
+                    <input type="text" class="form-control"
+                        id="y2" name="y2"
+                        placeholder="Enter y2 value" required>
+                </div>
+                <div class="form-group mt-2">
+                    <select class="form-control" name="chart_type" required>
+                        <option value="">Select chart type</option>
+                        <option value="line">Line</option>
+                        <option value="scatter">Dot</option>
+                    </select>
 
+                </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-dark mt-3">Get result</button>
                 </div>
             </form>
         </div>
     </div>
+
+    <div class="card col-12 col-md-6 col-lg-4 m-auto d-none" id="circle">
+        <div class="card-header">Circle Drawing algorithm
+        </div>
+        <div class="card-body">
+            <form action="{% url 'graphics_circle' %}" method="POST" id="graphics_circle">
+                {% csrf_token %}
+                <div class="form-group mt-2">
+                    <select class="form-control" id="type" name="type" required>
+                        <option value="">Select algorithm</option>
+                        <option value="midpoint">Mid point</option>
+                        <option value="bresenham">Bresenham</option>
+                    </select>
+
+                </div>
+                <div class="form-group mt-2">
+                    <input type="number" class="form-control" required
+                        id="h" name="h"
+                        placeholder="Enter h value" >
+                </div>
+                <div class="form-group mt-2">
+                    <input type="number" class="form-control" required
+                        id="k" name="k"
+                        placeholder="Enter k value" >
+                </div>
+                <div class="form-group mt-2">
+                    <input type="number" class="form-control" required
+                        id="r" name="r"
+                        placeholder="Enter r value" >
+                </div>
+                <div class="form-group mt-2">
+                    <select class="form-control" name="chart_type" required>
+                        <option value="">Select chart type</option>
+                        <option value="line">Line</option>
+                        <option value="scatter">Dot</option>
+                    </select>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-dark mt-3">Get result</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     {% if result is not None%}
     <div style="max-width: 600px; margin: 20px auto;">
+        <p><h3>Problem description</h3> {{problem_description}}</p>
         {% if type == 'dda_1' %}
+        <h3>Solution</h3>
         Here I define two points as <i>x<sub>1</sub>={{x1}}, y<sub>1</sub>={{y1}}</i>
         and <i>x<sub>2</sub>={{x2}}, y<sub>2</sub>={{y2}}</i>. Now following
         above mentioned algorithm I will find out all pixel points and showing
@@ -79,8 +127,7 @@
         <i>step = {{step}}</i><br>
         <i>X<sub>increment</sub> = {{x_inc}}</i><br>
         <i>Y<sub>increment</sub> = {{y_inc}}</i><br>
-        {% endif %}
-        {% if type == 'bresenham' %}
+        {% else %}
         {% for des in description %}
         {{des}}<br>
         {% endfor %}
@@ -89,59 +136,89 @@
     </div>
     <!-- {{result}}
         <div class="mt-5"></div> -->
-    <table class="table table-striped table-hover table-bordered m-auto"
-        style="max-width: 600px;">
-        <tr>
-            {% for heading in headings %}
-            <th class="text-center">{{heading}}</th>
-            {% endfor %}
-        </tr>
-        {% for row in result %}
-        <tr>
-            {% if type == 'dda_1' %}
-            <td>{{row.step}}</td>
-            <td>{{row.xi}}</td>
-            <td>{{row.yi}}</td>
-            <td>{{row.xi_1}}</td>
-            <td>{{row.yi_1}}</td>
-            <td>{{row.x_y}}</td>
-            <td>{{row.plot_x_y}}</td>
-            {% endif %}
-            {% if type == 'bresenham' %}
-            <td class="text-center px-3">{{row.x1}}</td>
-            <td class="text-center px-3">{{row.y1}}</td>
-            <td class="text-center px-3">({{row.x1}},{{row.y1}})</td>
-            <td>{{row.f_l}}<br>{{row.l_l}}</td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-    </table>
-    <div style="justify-content: center;align-items: center;">
-        <canvas id="myChart" style="max-width: 50%; width: 300px;
-            height:300px;"></canvas>
-        <button onclick="saveChart()">Save chart</button>
-    </div>
+            <table class="table table-striped table-hover table-bordered mx-1 m-auto">
+                <tr>
+                    {% for heading in headings %}
+                    <th class="text-center">{{heading}}</th>
+                    {% endfor %}
+                </tr>
+                {% for row in result %}
+                <tr>
+                    {% if type == 'dda_1' %}
+                    <td class="text-center">{{row.step}}</td>
+                    <td class="text-center">{{row.xi}}</td>
+                    <td class="text-center">{{row.yi}}</td>
+                    <td class="text-center">{{row.xi_1}}</td>
+                    <td class="text-center">{{row.yi_1}}</td>
+                    <td class="text-center">{{row.x_y}}</td>
+                    <td class="text-center">{{row.plot_x_y}}</td>
+                    {% endif %}
+                    {% if type == 'bresenham' %}
+                    <td class="text-center px-3">{{row.x1}}</td>
+                    <td class="text-center px-3">{{row.y1}}</td>
+                    <td class="text-center px-3">({{row.x1}},{{row.y1}})</td>
+                    <td>{{row.f_l}}<br>{{row.l_l}}</td>
+                    {% endif %}
+                    {% if type == 'circle' %}
+                    <td class="text-center">{{row.step}}</td>
+                    <td class="text-center">{{row.x}}</td>
+                    <td class="text-center">{{row.y}}</td>
+                    <td class="text-center">{{row.plot1}}</td>
+                    <td class="text-center">{{row.plot2}}</td>
+                    <td class="text-center">{{row.plot3}}</td>
+                    <td class="text-center">{{row.plot4}}</td>
+                    <td class="text-center">{{row.plot5}}</td>
+                    <td class="text-center">{{row.plot6}}</td>
+                    <td class="text-center">{{row.plot7}}</td>
+                    <td class="text-center">{{row.plot8}}</td>
+                    <td class="text-center">{{row.p_update}}</td>
+                    
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+            <div class="row justify-content-center my-3">
+                <div class="col-11 text-center" style="width: {{chart_width}};
+                height:{{chart_height}};">
+                    <canvas id="myChart" class="text-center" style="max-width: 100%; width: {{chart_width}}; height: {{chart_height}};"></canvas>
+                    <button onclick="saveChart()">Save chart</button>
+                </div>
+            </div>
     {% endif %}
     <!-- {{points}} -->
-
 </div>
 <script>
-    function showForm(){
-        // alert($("#type").val());
-        console.log("hello");
-    }
-
+    $("#circle_drawing").on('click',function(){
+        $("#line").removeClass("d-block");
+        $("#line").addClass("d-none");
+        $("#circle").removeClass("d-none");
+        $("#circle").addClass("d-block");
+        $("#line_drawing").removeClass("border-bottom");
+        $(this).addClass("border-bottom");
+    });
+    $("#line_drawing").on('click',function(){
+        $("#circle").removeClass("d-block");
+        $("#circle").addClass("d-none");
+        $("#line").removeClass("d-none");
+        $("#line").addClass("d-block");
+        $("#circle_drawing").removeClass("border-bottom");
+        $(this).addClass("border-bottom");
+    });
+</script>
+{% if result is not None%}
+<script>
+    
     const xValues = {{x_values|safe}};
     const yValues = {{y_values|safe}};
-    const dataPoints = {{points|safe}}
+    const dataPoints = {{points|safe}};
     const fig = "{{figure_title|safe}}"
-    console.log(xValues)
-    console.log(yValues)
-    console.log(dataPoints)
-    console.log(fig)
+    // console.log(xValues)
+    // console.log(yValues)
+    // console.log(dataPoints)
+    // console.log(fig)
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
-        type: 'line',
+        type: '{{chart_type}}',
         data: {
             labels: xValues,
             datasets: [{
@@ -207,4 +284,5 @@
       document.body.removeChild(link);
     }
   </script>
+  {% endif %}
 {% endblock %}
