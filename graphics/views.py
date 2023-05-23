@@ -125,6 +125,7 @@ def bresenham(x1,y1,x2,y2):
     return ctx
 
 def graphics(request):
+    context = {}
     if request.method=="POST":
         type = request.POST.get("type")
         x1 = (int)(request.POST.get("x1"))
