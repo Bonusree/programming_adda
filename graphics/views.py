@@ -155,7 +155,7 @@ def bresenham_circle(h,k,r):
     ctx['description']=[mark_safe('First calculate the followings:<br>'),
         f'P = 3-2r = 3-2*{r}={3-2*r}',
         f'x = 0',
-        f'x = {r}']
+        f'y = {r}']
     ctx['chart_width']=f"{len(ctx['x_values'])*50}px"
     ctx['chart_height']=f"{len(ctx['y_values'])*50}px"
     ctx['problem_description']=f"Draw circle, which center ({h},{k}) and radius {r} using Bresenham circle drawing algorithm."
@@ -210,7 +210,7 @@ def midpoint_circle(h,k,r):
     ctx['description']=[mark_safe('First calculate the followings:<br>'),
         f'P = 1-r = 1-{r}={1-r}',
         f'x = 0',
-        f'x = {r}']
+        f'y = {r}']
     ctx['chart_width']=f"{len(ctx['x_values'])*50}px"
     ctx['chart_height']=f"{len(ctx['y_values'])*50}px"
     ctx['problem_description']=f"Draw circle, which center ({h},{k}) and radius {r} using Bresenham circle drawing algorithm."
@@ -218,9 +218,9 @@ def midpoint_circle(h,k,r):
     step=1
     while(x<=y):
         if p<0:
-            p_update = f'p<0 so p = {p}+2*{x}+6 = {p+2*x+3}'
+            p_update = f'p<0 so p = {p}+2*{x}+3 = {p+2*x+3}'
         else:
-            p_update = f'p>=0 so p = {p}+2*({x}-{y})+10 = {p+2*(x-y)+5}'
+            p_update = f'p>=0 so p = {p}+2*({x}-{y})+5= {p+2*(x-y)+5}'
         ctx['result'].append({
             'step':step,
             'x':x,
@@ -260,7 +260,7 @@ def graphics_circle(request):
         k = (int)(request.POST.get("k"))
         r = (int)(request.POST.get("r"))
         chart_type = request.POST.get("chart_type")
-        print("chart ===== ",chart_type)
+        
         context = {}
         if type=='midpoint':
             context = midpoint_circle(h,k,r)
