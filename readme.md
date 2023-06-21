@@ -22,3 +22,6 @@
 example > [mestu paul](github.com/Mestu-Paul)
 ```
 
+**superuser**
+Name: admin
+password: 123
